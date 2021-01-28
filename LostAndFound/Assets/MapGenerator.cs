@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    GameObject[,] cards;
+    public static GameObject[,] cards;
     public GameObject card;
     public GameObject goodCard;
+    public GameObject player;
     public int cardsX;
     public int cardsY;
 
@@ -41,6 +42,13 @@ public class MapGenerator : MonoBehaviour
         int startCardX = Random.Range(0, xSize);
         int startY = 0;
         cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
+       
+        var playerMove = player.GetComponent<PlayerMovement>();       
+        playerMove.xPos = startCardX;  
+        playerMove.yPos = startY;
+        player.transform.position = cards[startCardX, startY].transform.position + (Vector3.up * 0.01f);
+        playerMove.maxXpos = xSize;
+        playerMove.maxYpos = ySize;
 
         int currentY = startY;
         int currentX = startCardX;
