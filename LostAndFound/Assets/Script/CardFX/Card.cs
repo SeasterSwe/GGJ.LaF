@@ -4,44 +4,60 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    public bool busy;
-    float hoverPos;
-    float hoverStr = 0.2f;
+    int id;
+    int x;
+    int y;
+    public bool iAmPath = false;
+    public bool iAmGoal = false;
 
-    Vector3 orgPos;
-    Vector3 hovPos;
+    public enum CardType { evil, good, neutral, final };
+    public CardType type = CardType.evil;
+
+    public bool open;
+    public bool busy;
+    public int hpDmg = 2;
+    public Material redTesting;
+
+    GameObject model;
 
     private void Start()
     {
-        orgPos = transform.position;
-        hoverPos = Random.Range(0, Mathf.PI);
-        hovPos = transform.position + Vector3.up * hoverStr;
+        model ??= transform.GetChild(0).gameObject;
     }
 
-    public void StartFlipCard()
+    public void SetToCard(GameObject newCard, int dmg, bool path, bool final)
     {
-        if (!busy)
-        {
-            StartCoroutine(FlipCard());
-            busy = true;
-        }
-    }
-    // Update is called once per frame
-    private void Update()
-    {
+        if (hpDmg > 0)
+            type = CardType.neutral;
+        else if (hpDmg == 0)
+            type = CardType.neutral;
+        else
+            type = CardType.evil;
 
-        //transform.position = Vector3.Lerp(orgPos, hovPos, Mathf.Sin(hoverPos));
-        //hoverPos += Time.deltaTime;
+        iAmPath = path;
+        iAmGoal = final;
+        hpDmg = dmg;
+        StartCoroutine(swapType(newCard));
     }
-    IEnumerator FlipCard()
+
+    IEnumerator swapType(GameObject newCardModel)
     {
-        int r = 0;
-        while (r <= 180)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, r);
-            r++;
-            yield return new WaitForEndOfFrame();
-        }
-        busy = false;
+        model ??= transform.GetChild(0).gameObject;
+        Destroy(model);
+        yield return null;
+        model = Instantiate(newCardModel, transform.position, transform.rotation);
+        model.transform.parent = transform;
     }
+
+    public void ChangeColor()
+    {
+        /*
+        Material[] mats = transform.GetChild(0).GetComponent<Renderer>().materials;
+        mats[0] = redTesting;
+        mats[1] = redTesting;
+        mats[2] = redTesting;
+        transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+    */
+    }
+
 }
