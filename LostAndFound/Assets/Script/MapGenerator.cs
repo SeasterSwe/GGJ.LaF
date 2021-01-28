@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public GameState gm;
     public static GameObject[,] cards;
     public GameObject card;
     public GameObject goodCard;
@@ -138,8 +139,8 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < ySize; y++)
             {
-                if (cards[x, y].GetComponent<Card>().iAmPath)
-                    cards[x, y].GetComponent<Card>().ChangeColor();
+                if (cards[x, y].GetComponent<Card>().iAmPath && cards[x, y].GetComponent<Card>().busy == false)
+                    gm.cardShuffle.FlipThisCardAround(cards[x, y].transform);//.GetComponent<Card>());//.ChangeColor();
             }
         }
     }

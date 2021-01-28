@@ -25,6 +25,7 @@ public class GameState : MonoBehaviour
             if (t.gameObject.GetComponent<MapGenerator>())
             {
                 mapGen = t.gameObject.GetComponent<MapGenerator>();
+                mapGen.gm = this;
                
             }
 
