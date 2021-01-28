@@ -6,6 +6,7 @@ public class MapGenerator : MonoBehaviour
 {
     GameObject[,] cards;
     public GameObject card;
+    public GameObject goodCard;
     public int cardsX;
     public int cardsY;
 
@@ -30,7 +31,6 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
-                cards[x, y].SetActive(false);
             }
         }
         StartCoroutine(GeneratePath(cardsX, cardsY));
@@ -40,7 +40,7 @@ public class MapGenerator : MonoBehaviour
     {
         int startCardX = Random.Range(0, xSize);
         int startY = 0;
-        cards[startCardX, startY].SetActive(true);
+        cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
 
         int currentY = startY;
         int currentX = startCardX;
@@ -54,22 +54,22 @@ public class MapGenerator : MonoBehaviour
                     if (currentX - 1 < 0) //boardercheck
                         continue;
 
-                    if (cards[currentX - 1, currentY].activeSelf == true) //kollar om korter dir är true
+                    if (cards[currentX - 1, currentY].GetComponent<Card>().iAmPath == true) //kollar om korter dir är true
                         continue;
 
                     currentX -= 1; //går höger
-                    cards[currentX, currentY].SetActive(true);
+                    cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
                     break;
 
                 case 1:
                     if (currentX + 1 >= xSize - 1) //boardercheck
                         continue;
 
-                    if (cards[currentX + 1, currentY].activeSelf == true) //kollar om korter dir är true
+                    if (cards[currentX + 1, currentY].GetComponent<Card>().iAmPath == true) //kollar om korter dir är true
                         continue;
 
                     currentX += 1; //går höger
-                    cards[currentX, currentY].SetActive(true);
+                    cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
                     break;
 
                 default:
@@ -77,33 +77,36 @@ public class MapGenerator : MonoBehaviour
                     if (currentY >= ySize)
                         break;
 
-                    cards[currentX, currentY].SetActive(true);
-                    if (currentX == 0 && cards[currentX + 1, currentY - 1].activeSelf) //om jag e noll kolla höger ner
+                    cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                    if (currentX == 0 && cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath) //om jag e noll kolla höger ner
                     {
                         currentY += 1; //går upp
                         if (currentY >= ySize)
                             break;
 
-                        cards[currentX, currentY].SetActive(true);
+                        cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
                     }
 
-                    else if (currentX == 0 && cards[currentX + 1, currentY - 1].activeSelf == false)
+                    else if (currentX == 0 && cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath == false)
                         break;
 
-                    else if (currentX == xSize - 1 && cards[currentX - 1, currentY - 1].activeSelf) //om jag är kant kolla vänster ner
+                    else if (currentX == xSize - 1 && cards[currentX - 1, currentY - 1].GetComponent<Card>().iAmPath) //om jag är kant kolla vänster ner
                     {
                         currentY += 1; //går upp
                         if (currentY >= ySize)
                             break;
-                        cards[currentX, currentY].SetActive(true);
+                        cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
                     }
 
-                    else if (currentY != 0 && cards[currentX - 1, currentY - 1].activeSelf || cards[currentX + 1, currentY - 1].activeSelf)
+                    else if (currentX == xSize - 1 && cards[currentX - 1, currentY - 1].GetComponent<Card>().iAmPath == false)
+                        break;
+
+                    else if (currentY != 0 && cards[currentX - 1, currentY - 1].GetComponent<Card>().iAmPath || cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath)
                     {
                         currentY += 1; //går upp
                         if (currentY >= ySize)
                             break;
-                        cards[currentX, currentY].SetActive(true);
+                        cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
 
                     }
                     break;
@@ -112,11 +115,25 @@ public class MapGenerator : MonoBehaviour
             if (currentY >= ySize)
                 break;
 
+            ChangeColor(xSize, ySize);
             //cards[currentX, currentY].SetActive(true);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
 
+        ChangeColor(xSize, ySize);
         yield return new WaitForEndOfFrame();
+    }
+
+    void ChangeColor(int xSize, int ySize)
+    {
+        for (int x = 0; x < xSize; x++)
+        {
+            for (int y = 0; y < ySize; y++)
+            {
+                if (cards[x, y].GetComponent<Card>().iAmPath)
+                    cards[x, y].GetComponent<Card>().ChangeColor();
+            }
+        }
     }
     //bredd antal kort
     //höjd antal kort
