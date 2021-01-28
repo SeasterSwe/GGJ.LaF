@@ -18,6 +18,11 @@ public class MapGenerator : MonoBehaviour
     float cardHeight = 3f;
     float spaceBetweenCards = 0.3f;
 
+    /// <summary>
+    /// Robbans test
+    /// </summary>
+    List<Transform> path = new List<Transform>();
+
     void Start()
     {
         MakeGrid(cardsX, cardsY);
@@ -38,11 +43,12 @@ public class MapGenerator : MonoBehaviour
             }
         }
         StartCoroutine(GeneratePath(cardsX, cardsY));
+        
     }
 
     IEnumerator GeneratePath(int xSize, int ySize)
     {
-        int startCardX = Random.Range(2, xSize-2);
+        int startCardX = Random.Range(2, xSize - 2);
         int startY = 0;
         cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
         ChangeColor(startCardX, startY);
@@ -124,6 +130,8 @@ public class MapGenerator : MonoBehaviour
         }
 
         yield return new WaitForEndOfFrame();
+
+        StartCoroutine(ClosePath());
     }
 
     void ChangeColor(int x, int y)
@@ -133,8 +141,21 @@ public class MapGenerator : MonoBehaviour
 
     void MakePathCardAndSpin(int x, int y)
     {
+        path.Add(cards[x, y].transform);
         cards[x, y].GetComponent<Card>().iAmPath = true;
         gm.cardShuffle.FlipThisCardOpen(cards[x, y].transform);
+    }
+
+    IEnumerator ClosePath()
+    {
+        yield return new WaitForSeconds(1);
+        int i = 0;
+        while (i < path.Count)
+        {
+            gm.cardShuffle.FlipThisCard(path[i]);
+            i++;
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
     //bredd antal kort
