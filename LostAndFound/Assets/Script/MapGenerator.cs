@@ -31,6 +31,7 @@ public class MapGenerator : MonoBehaviour
 
     public void ResetMap(int level)
     {
+        path = new List<Transform>();
         StartCoroutine(EraseMap(level));
     }
 
@@ -69,60 +70,109 @@ public class MapGenerator : MonoBehaviour
                 cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false, false);
             }
         }
-        StartCoroutine(GeneratePath(cardsX, cardsY));
+        //        StartCoroutine(GeneratePath(cardsX, cardsY));
+
+        StartCoroutine(TakeABreak());
     }
 
+    //Roberts Test
+    IEnumerator TakeABreak()
+    {
+        yield return null;
+        GenerateAPath();
+    }
     private void GenerateAPath()
     {
-        int itt = 0;
+        int itt = Random.Range(0, 10);
         int y = 0;
         int x = (int)(cardsX * 0.5f);
+
+        GameObject firstCard = cards[x, y];
+
         List<GameObject> pathRoute = new List<GameObject>();
+        pathRoute.Add(firstCard);
+
         while (y < cardsY - 1)
         {
-            itt++;
+
             if (Random.Range(0, 10) > 5)
             {
                 y++;
+                itt = Random.Range(0, 10);
             }
             else
             {
-                if (Random.Range(0, 10) > 5 && x + 1 < cardsX)
+                if (itt > 5)
                 {
                     if (x + 1 < cardsX)
                         x++;
                     else
-                        x--;
+                    {
+                        y++;
+                        itt = Random.Range(0, 10);
+                    }
                 }
                 else
                 {
                     if (x - 1 > -1)
                         x--;
                     else
-                        x++;
+                    {
+                        y++;
+                        itt = Random.Range(0, 10);
+                    }
                 }
             }
-            print("y : " + y + " itt : " + itt);
             pathRoute.Add(cards[x, y]);
         }
 
+        GameObject[] listofPath = pathRoute.ToArray();
 
-        foreach (GameObject o in pathRoute)
+        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab, 0, true, true);
+        for (int i = 0; i < listofPath.Length; i++)
         {
-            o.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
+            listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true, false);
         }
 
+
+        StartCoroutine(OpenPath(listofPath));
     }
 
+    IEnumerator OpenPath(GameObject[] listOfPath)
+    {
+        for (int y = 0; y < listOfPath.Length; y++)
+        {
+            gm.cardShuffle.FlipThisCardOpen(listOfPath[y].transform);
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        int x = 0;
+        for (int y = 1; y < listOfPath.Length; y++)
+        {
+            gm.cardShuffle.SwapCardOneWithTwo(listOfPath[0].transform, listOfPath[y].transform);
+            while (listOfPath[0].GetComponent<Card>().busy)
+            {
+                yield return null;
+            }
+            x = y;
+        }
+
+        for (int y = listOfPath.Length-1; y >-1; y--)
+        {
+            gm.cardShuffle.FlipThisCardClose(listOfPath[y].transform);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    //Roberts test slut//
     IEnumerator GeneratePath(int xSize, int ySize)
     {
         yield return null;
         int startCardX = Random.Range(2, xSize - 2);
         int startY = 0;
-        cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
-        ChangeColor(startCardX, startY);
+        // cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
+        // ChangeColor(startCardX, startY);
 
-        var playerMove = player.GetComponent<PlayerMovement>();
+        PlayerMovement playerMove = player.GetComponent<PlayerMovement>();
         playerMove.xPos = startCardX;
         playerMove.yPos = startY;
         player.transform.position = cards[startCardX, startY].transform.position + (Vector3.up * 0.01f);
