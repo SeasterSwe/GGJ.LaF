@@ -46,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
         Card card = MapGenerator.cards[xPos + x, yPos + z].GetComponent<Card>();
 
-        gm.cardShuffle.FlipThisCard(card.transform);
+        gm.cardShuffle.FlipThisCardOpen(card.transform);
+            gm.plStats.TakeDamage(card.hpDmg);
         if (card.iAmPath)
         {
             xPos += x;
@@ -54,11 +55,17 @@ public class PlayerMovement : MonoBehaviour
 //            xPos = Mathf.Clamp(xPos, 0, maxXpos - 1);
 //            yPos = Mathf.Clamp(yPos, 0, maxYpos - 1);
             transform.position = MapGenerator.cards[xPos, yPos].transform.position;
+
+            if (card.iAmGoal)
+            {
+                gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
+                Instantiate(gm.WinFX, transform.position, Quaternion.identity);
+                print("YOU WIN - FINISH HER!");
+            }
         }
-        else
-        {
-            gm.plStats.TakeDamage(card.hpDmg);
-        }
+
+
+       
     }
 
     void GetCard()

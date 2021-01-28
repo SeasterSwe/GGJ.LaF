@@ -12,6 +12,10 @@ public class GameState : MonoBehaviour
     public ShuffleCards cardShuffle;
     public PlayerStats plStats;
     public HUD hud;
+
+    public GameObject WinFX;
+
+
     private void Awake()
     {
         Transform[] allObj = FindObjectsOfType<Transform>();

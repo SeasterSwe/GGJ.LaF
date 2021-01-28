@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -256,6 +256,10 @@ MonoBehaviour:
   cardsX: 8
   cardsY: 10
   flipTime: 0.2
+  evilCardPreFab: {fileID: 1711991160649486354, guid: 116a3d49fd1e54142a471ca5ed681bfa, type: 3}
+  neutralCardPreFab: {fileID: 4622966248852738320, guid: 00ef321b90bd4804284d4dbef0361114, type: 3}
+  goodCardPreFab: {fileID: 3316217321797695387, guid: 33477cda030b34a4da66e0e502646f1e, type: 3}
+  finalCardPreFab: {fileID: 3229922299587622191, guid: a1bea2ea005f6984a8669873a45e175b, type: 3}
 --- !u!1 &485554947
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +634,7 @@ MonoBehaviour:
   cardShuffle: {fileID: 0}
   plStats: {fileID: 0}
   hud: {fileID: 0}
+  WinFX: {fileID: 1765569388773512704, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
 --- !u!4 &1632932866
 Transform:
   m_ObjectHideFlags: 0
@@ -946,3 +951,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
   hp: 5
+--- !u!1001 &1765569388379389804
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1765569388773512704, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_Name
+      value: Particle FireWorks
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512706, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: lengthInSec
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512706, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000013113021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569388773512707, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765569389534402589, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 956b273e80f8d3c428132c6cd07d60c8, type: 3}

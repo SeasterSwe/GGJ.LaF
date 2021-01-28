@@ -14,7 +14,7 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
-        hp -= dmg;
+        hp += dmg;
         gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
         if (hp <= 0)
         {

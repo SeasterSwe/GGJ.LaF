@@ -27,6 +27,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject evilCardPreFab;
     public GameObject neutralCardPreFab;
     public GameObject goodCardPreFab;
+    public GameObject finalCardPreFab;
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
-                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false);
+                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false, false);
             }
         }
         StartCoroutine(GeneratePath(cardsX, cardsY));
@@ -185,13 +186,14 @@ public class MapGenerator : MonoBehaviour
     void ChangeColor(int x, int y)
     {
         cards[x, y].GetComponent<Card>().ChangeColor();
+        cards[x, y].GetComponent<Card>().SetToCard(finalCardPreFab, 5, true, true);
     }
 
     void MakePathCardAndSpin(int x, int y)
     {
         path.Add(cards[x, y].transform);
         //cards[x, y].GetComponent<Card>().iAmPath = true;
-        cards[x, y].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true);
+        cards[x, y].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true, false);
 
         gm.cardShuffle.FlipThisCardOpen(cards[x, y].transform);
     }
