@@ -8,6 +8,10 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
+        if(hp <= 0)
+        {
+            print("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!");
+        }
     }
 
     public void AddHP(int add)

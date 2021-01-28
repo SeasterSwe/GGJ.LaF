@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //Take DMG!!!
+            gm.plStats.TakeDamage(card.hpDmg);
         }
     }
 

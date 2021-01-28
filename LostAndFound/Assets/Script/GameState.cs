@@ -10,7 +10,7 @@ public class GameState : MonoBehaviour
     public MapGenerator mapGen;
     public PlayerMovement plMove;
     public ShuffleCards cardShuffle;
-
+    public PlayerStats plStats;
 
     private void Awake()
     {
@@ -31,6 +31,11 @@ public class GameState : MonoBehaviour
             if (t.gameObject.GetComponent<ShuffleCards>())
             {
                 cardShuffle = t.gameObject.GetComponent<ShuffleCards>();
+            }
+
+            if (t.gameObject.GetComponent<PlayerStats>())
+            {
+                plStats = t.gameObject.GetComponent<PlayerStats>();
             }
         }
 

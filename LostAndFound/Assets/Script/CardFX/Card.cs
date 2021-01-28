@@ -10,7 +10,7 @@ public class Card : MonoBehaviour
     public bool iAmPath = false;
     public bool open;
     public bool busy;
-    int hpDmg = 0;
+    public int hpDmg = 2;
     public Material redTesting;
     public void ChangeColor()
     {
