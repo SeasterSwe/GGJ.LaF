@@ -20,14 +20,10 @@ public class ShuffleCards : MonoBehaviour
     public IEnumerator SwapCards(Transform cardOne, Transform cardTwo)
     {
         busy = true;
-<<<<<<< Updated upstream
-        Vector3 dir = Quaternion.Euler(0, 90, 0) * (cardOne.position - cardTwo.position).normalized;
-=======
         cardOne.gameObject.GetComponent<Card>().busy = true;
         cardTwo.gameObject.GetComponent<Card>().busy = true;
 
         Vector3 dir = Quaternion.Euler(0, -90, 0) * (cardOne.position - cardTwo.position).normalized;
->>>>>>> Stashed changes
         Vector3 midPoint = (cardOne.position + cardTwo.position) * 0.5f;
         Vector3 dirOne = cardOne.position - midPoint;
         Vector3 dirTwo = cardTwo.position - midPoint;
