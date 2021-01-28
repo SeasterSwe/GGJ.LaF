@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public GameState gm;
     public int hp = 5;
+
+    private void Start()
+    {
+        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
+    }
+
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        if(hp <= 0)
+        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
+        if (hp <= 0)
         {
-            print("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!");
+            gm.hud.UpdatePlayerText("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!");
         }
     }
 

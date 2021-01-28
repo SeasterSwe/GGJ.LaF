@@ -14,13 +14,12 @@ public class Card : MonoBehaviour
     public Material redTesting;
     public void ChangeColor()
     {
-        if (iAmPath)
-        {
-            Material[] mats = transform.Find("card").GetComponent<Renderer>().materials;
-            mats[0] = redTesting;
-            mats[1] = redTesting;
-            mats[2] = redTesting;
-            transform.Find("card").GetComponent<Renderer>().materials = mats;
-        }
+
+        Material[] mats = transform.Find("card").GetComponent<Renderer>().materials;
+        mats[0] = redTesting;
+        mats[1] = redTesting;
+        mats[2] = redTesting;
+        transform.Find("card").GetComponent<Renderer>().materials = mats;
+
     }
 }
