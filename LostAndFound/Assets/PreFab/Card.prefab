@@ -58,7 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c221e5e225bb814c83d6a4a3a7bd821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iAmPath: 0
+  open: 0
   busy: 0
+  redTesting: {fileID: 2100000, guid: 86201d20163946f458e600a0a1ca99df, type: 2}
 --- !u!1001 &1516823191765383912
 PrefabInstance:
   m_ObjectHideFlags: 0
