@@ -30,8 +30,8 @@ public class Card : MonoBehaviour
     private void Update()
     {
 
-        transform.position = Vector3.Lerp(orgPos, hovPos, Mathf.Sin(hoverPos));
-        hoverPos += Time.deltaTime;
+        //transform.position = Vector3.Lerp(orgPos, hovPos, Mathf.Sin(hoverPos));
+        //hoverPos += Time.deltaTime;
     }
     IEnumerator FlipCard()
     {
