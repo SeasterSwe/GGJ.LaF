@@ -5,10 +5,13 @@ using UnityEngine;
 public class CardFlip : MonoBehaviour
 {
     public Transform pointer;
+
+    public ShuffleCards shffleCard;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!shffleCard)
+            shffleCard = GetComponent<ShuffleCards>();
     }
     void Update()
     {
@@ -21,7 +24,10 @@ public class CardFlip : MonoBehaviour
             if (hit.collider.GetComponent<Card>())
             {
                 print("HitCard");
-                hit.collider.gameObject.GetComponent<Card>().StartFlipCard();
+              //  if (!hit.collider.gameObject.GetComponent<Card>().busy)
+               // {
+                    shffleCard.FlipThisCard(hit.transform);
+                //}
             }
         }
     }
