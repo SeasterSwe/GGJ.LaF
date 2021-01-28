@@ -41,7 +41,7 @@ public class ShuffleCards : MonoBehaviour
         StartCoroutine(FlipCardClose(card));
     }
 
-    public IEnumerator SwapCards(Transform cardOne, Transform cardTwo)
+    private IEnumerator SwapCards(Transform cardOne, Transform cardTwo)
     {
         busy = true;
         cardOne.gameObject.GetComponent<Card>().busy = true;
@@ -69,7 +69,7 @@ public class ShuffleCards : MonoBehaviour
         busy = false;
     }
 
-    IEnumerator FlipCardOpen(Transform card)
+    private IEnumerator FlipCardOpen(Transform card)
     {
         busy = true;
         card.gameObject.GetComponent<Card>().busy = true;
@@ -87,7 +87,7 @@ public class ShuffleCards : MonoBehaviour
         busy = false;
     }
 
-    IEnumerator FlipCardClose(Transform card)
+    private IEnumerator FlipCardClose(Transform card)
     {
         busy = true;
         card.gameObject.GetComponent<Card>().busy = true;

@@ -6,6 +6,9 @@ public class CardFlip : MonoBehaviour
 {
     public Transform pointer;
 
+    public Transform cOne;
+    public Transform cTwo;
+
     public ShuffleCards shffleCard;
     // Start is called before the first frame update
     void Start()
@@ -24,10 +27,23 @@ public class CardFlip : MonoBehaviour
             if (hit.collider.GetComponent<Card>())
             {
                 print("HitCard");
-              //  if (!hit.collider.gameObject.GetComponent<Card>().busy)
-               // {
+                if (!hit.collider.gameObject.GetComponent<Card>().busy)
+                {
+                    if (cOne != hit.collider.transform)
+                    {
+                        cTwo = cOne;
+                        cOne = hit.collider.transform;
+                    }
+                }
+                if (Input.GetButtonDown("Fire1"))
+                {
                     shffleCard.FlipThisCard(hit.transform);
-                //}
+                }
+
+                if(Input.GetButtonDown("Fire2") && cTwo != null)
+                {
+                    shffleCard.SwapCardOneWithTwo(cOne.transform, cTwo.transform);
+                }
             }
         }
     }
