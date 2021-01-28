@@ -11,7 +11,7 @@ public class GameState : MonoBehaviour
     public PlayerMovement plMove;
     public ShuffleCards cardShuffle;
     public PlayerStats plStats;
-
+    public HUD hud;
     private void Awake()
     {
         Transform[] allObj = FindObjectsOfType<Transform>();
@@ -37,7 +37,9 @@ public class GameState : MonoBehaviour
             if (t.gameObject.GetComponent<PlayerStats>())
             {
                 plStats = t.gameObject.GetComponent<PlayerStats>();
+                plStats.gm = this;
             }
+
         }
 
 
@@ -46,7 +48,8 @@ public class GameState : MonoBehaviour
             mapGen = GetComponentInChildren<MapGenerator>();
         }
 
-
+        if (!hud)
+            hud = this.gameObject.GetComponent<HUD>();
     }
     public void SetStateToGo()
     {
