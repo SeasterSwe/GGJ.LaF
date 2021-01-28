@@ -56,11 +56,15 @@ public class PlayerMovement : MonoBehaviour
 //            yPos = Mathf.Clamp(yPos, 0, maxYpos - 1);
             transform.position = MapGenerator.cards[xPos, yPos].transform.position;
 
-            if (card.iAmGoal)
+            gm.hud.AddPlayerScore(1);
+
+            if (card.iAmGoal) ///Win the game
             {
+                gm.hud.AddPlayerScore(9);
                 gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
                 Instantiate(gm.WinFX, transform.position, Quaternion.identity);
                 print("YOU WIN - FINISH HER!");
+                gm.StartGoalSecquence();
             }
         }
 

@@ -29,8 +29,28 @@ public class MapGenerator : MonoBehaviour
     public GameObject goodCardPreFab;
     public GameObject finalCardPreFab;
 
-    void Start()
+    public void ResetMap(int level)
     {
+        StartCoroutine(EraseMap(level));
+    }
+
+    IEnumerator EraseMap(int level)
+    {
+        for (int y = 0; y < cardsY; y++)
+        {
+            for (int x = 0; x < cardsX; x++)
+            {
+                Destroy(cards[x, y]);
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        StartGenerating(level);
+    }
+
+    public void StartGenerating(int difficultyLevel)
+    {
+        cardsY = difficultyLevel;
         MakeGrid(cardsX, cardsY);
     }
 
@@ -204,7 +224,7 @@ public class MapGenerator : MonoBehaviour
         int i = 0;
         while (i < path.Count)
         {
-            gm.cardShuffle.FlipThisCard(path[i]);
+            gm.cardShuffle.FlipThisCardClose(path[i]);
             i++;
             yield return new WaitForSeconds(0.25f);
         }

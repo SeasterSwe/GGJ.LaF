@@ -70,38 +70,45 @@ public class ShuffleCards : MonoBehaviour
 
     private IEnumerator FlipCardOpen(Transform card)
     {
-        busy = true;
-        card.gameObject.GetComponent<Card>().busy = true;
-        int r = (int)card.eulerAngles.z;
-        while (r <= 180)
+        if (card)
         {
             busy = true;
-            card.rotation = Quaternion.Euler(0, 0, r);
-            r+=rotSpeed;
-            yield return new WaitForEndOfFrame();
-        }
+            card.gameObject.GetComponent<Card>().busy = true;
+            int r = (int)card.eulerAngles.z;
+            while (r <= 180)
+            {
+                busy = true;
+                card.rotation = Quaternion.Euler(0, 0, r);
+                r += rotSpeed;
+                yield return new WaitForEndOfFrame();
+            }
 
-        card.gameObject.GetComponent<Card>().open = true;
-        card.gameObject.GetComponent<Card>().busy = false;
-        busy = false;
+            card.gameObject.GetComponent<Card>().open = true;
+            card.gameObject.GetComponent<Card>().busy = false;
+            busy = false;
+        }
     }
 
     private IEnumerator FlipCardClose(Transform card)
     {
-        busy = true;
-        card.gameObject.GetComponent<Card>().busy = true;
-        int r = (int)card.eulerAngles.z;
-        while (r >= 0)
+        if (card)
         {
-            busy = true;
-            card.rotation = Quaternion.Euler(0, 0, r);
-            r-=rotSpeed;
-            yield return new WaitForEndOfFrame();
-        }
 
-        card.gameObject.GetComponent<Card>().open = false;
-        card.gameObject.GetComponent<Card>().busy = false;
-        busy = false;
+            busy = true;
+            card.gameObject.GetComponent<Card>().busy = true;
+            int r = (int)card.eulerAngles.z;
+            while (r >= 0)
+            {
+                busy = true;
+                card.rotation = Quaternion.Euler(0, 0, r);
+                r -= rotSpeed;
+                yield return new WaitForEndOfFrame();
+            }
+
+            card.gameObject.GetComponent<Card>().open = false;
+            card.gameObject.GetComponent<Card>().busy = false;
+            busy = false;
+        }
     }
 
     private IEnumerator FlipCard360(Transform card)
