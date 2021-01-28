@@ -12,6 +12,8 @@ public class MapGenerator : MonoBehaviour
     public int cardsX;
     public int cardsY;
 
+    public float flipTime;
+
     float cardWidth = 2f;
     float cardHeight = 3f;
     float spaceBetweenCards = 0.3f;
@@ -43,9 +45,10 @@ public class MapGenerator : MonoBehaviour
         int startCardX = Random.Range(0, xSize);
         int startY = 0;
         cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
-       
-        var playerMove = player.GetComponent<PlayerMovement>();       
-        playerMove.xPos = startCardX;  
+        ChangeColor(startCardX, startY);
+
+        var playerMove = player.GetComponent<PlayerMovement>();
+        playerMove.xPos = startCardX;
         playerMove.yPos = startY;
         player.transform.position = cards[startCardX, startY].transform.position + (Vector3.up * 0.01f);
         playerMove.maxXpos = xSize;
@@ -68,6 +71,7 @@ public class MapGenerator : MonoBehaviour
 
                     currentX -= 1; //går höger
                     cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                    gm.cardShuffle.FlipThisCardAround(cards[currentX, currentY].transform);
                     break;
 
                 case 1:
@@ -79,6 +83,7 @@ public class MapGenerator : MonoBehaviour
 
                     currentX += 1; //går höger
                     cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                    gm.cardShuffle.FlipThisCardAround(cards[currentX, currentY].transform);
                     break;
 
                 default:
@@ -87,6 +92,7 @@ public class MapGenerator : MonoBehaviour
                         break;
 
                     cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                    gm.cardShuffle.FlipThisCardAround(cards[currentX, currentY].transform);
                     if (currentX == 0 && cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath) //om jag e noll kolla höger ner
                     {
                         currentY += 1; //går upp
@@ -94,6 +100,7 @@ public class MapGenerator : MonoBehaviour
                             break;
 
                         cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                        gm.cardShuffle.FlipThisCardAround(cards[currentX, currentY].transform);
                     }
 
                     else if (currentX == 0 && cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath == false)
@@ -105,6 +112,7 @@ public class MapGenerator : MonoBehaviour
                         if (currentY >= ySize)
                             break;
                         cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                        gm.cardShuffle.FlipThisCardAround(cards[currentX, currentY].transform);
                     }
 
                     else if (currentX == xSize - 1 && cards[currentX - 1, currentY - 1].GetComponent<Card>().iAmPath == false)
@@ -116,34 +124,33 @@ public class MapGenerator : MonoBehaviour
                         if (currentY >= ySize)
                             break;
                         cards[currentX, currentY].GetComponent<Card>().iAmPath = true;
+                        gm.cardShuffle.FlipThisCardAround(cards[currentX, currentY].transform);
 
                     }
                     break;
             }
 
             if (currentY >= ySize)
+            {
+                //print(($"Done Y : {currentY - 1} X {currentX}")); 
+                ChangeColor(currentX, currentY - 1);
                 break;
+            }
 
-            ChangeColor(xSize, ySize);
+            //ChangeColor(xSize, ySize);
             //cards[currentX, currentY].SetActive(true);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(flipTime);
         }
 
-        ChangeColor(xSize, ySize);
+        //ChangeColor(xSize, ySize);
         yield return new WaitForEndOfFrame();
     }
 
-    void ChangeColor(int xSize, int ySize)
+    void ChangeColor(int x, int y)
     {
-        for (int x = 0; x < xSize; x++)
-        {
-            for (int y = 0; y < ySize; y++)
-            {
-                if (cards[x, y].GetComponent<Card>().iAmPath && cards[x, y].GetComponent<Card>().busy == false)
-                    gm.cardShuffle.FlipThisCardAround(cards[x, y].transform);//.GetComponent<Card>());//.ChangeColor();
-            }
-        }
+        cards[x, y].GetComponent<Card>().ChangeColor();
     }
+
     //bredd antal kort
     //höjd antal kort
 

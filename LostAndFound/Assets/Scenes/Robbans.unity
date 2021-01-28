@@ -199,13 +199,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187906309}
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
   m_LocalPosition: {x: 10, y: 20, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
 --- !u!1 &315398201
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,8 +253,9 @@ MonoBehaviour:
   card: {fileID: 9080971412406212052, guid: f602aa7aa5da12d43b7d55ee473a66d8, type: 3}
   goodCard: {fileID: 0}
   player: {fileID: 2041699152}
-  cardsX: 10
-  cardsY: 10
+  cardsX: 3
+  cardsY: 15
+  flipTime: 0.2
 --- !u!1 &485554947
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1632932866}
   - component: {fileID: 1632932865}
+  - component: {fileID: 1632932867}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -442,6 +444,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1632932867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632932864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6620bebb012a1784ab19544a006b852d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2041699151
 PrefabInstance:
   m_ObjectHideFlags: 0
