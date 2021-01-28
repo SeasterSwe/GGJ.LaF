@@ -51,30 +51,39 @@ public class MapGenerator : MonoBehaviour
             switch (direction)
             {
                 case 0:
-                    currentX -= 1;
-                    if (currentX < 0)
-                    {
-                        currentX += 1;
+                    if (currentX - 1 < 0) //boardercheck
                         continue;
-                    }
+
+                    if (cards[currentX - 1, currentY].activeSelf == true) //kollar om korter dir är true
+                        continue;
+
+                    currentX -= 1; //går höger
+                    cards[currentX, currentY].SetActive(true);
                     break;
+               
                 case 1:
-                    currentX += 1;
-                    if (currentX >= xSize)
-                    {
-                        currentX -= 1;
+                    if(currentX + 1 >= xSize) //boardercheck
                         continue;
-                    }
+
+                    if (cards[currentX + 1, currentY].activeSelf == true) //kollar om korter dir är true
+                        continue;
+
+                    currentX += 1; //går höger
+                    cards[currentX, currentY].SetActive(true);
                     break;
+
                 default:
-                    currentY += 1;
+                    currentY += 1; //går upp
+                    for (int i = 0; i < 2; i++)
+                    {
+                        cards[currentX, currentY].SetActive(true);
+                    }
                     break;
             }
 
             if (currentY >= ySize)
                 break;
-
-            cards[currentX, currentY].SetActive(true);
+         
             yield return new WaitForSeconds(0.1f);
         }
 
