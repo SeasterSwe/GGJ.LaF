@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 9080971412406212052, guid: f602aa7aa5da12d43b7d55ee473a66d8, type: 3}
-  cardsX: 10
+  cardsX: 5
   cardsY: 10
 --- !u!1 &485554947
 GameObject:
