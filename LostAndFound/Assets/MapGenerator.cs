@@ -60,9 +60,9 @@ public class MapGenerator : MonoBehaviour
                     currentX -= 1; //går höger
                     cards[currentX, currentY].SetActive(true);
                     break;
-               
+
                 case 1:
-                    if(currentX + 1 >= xSize) //boardercheck
+                    if (currentX + 1 >= xSize - 1) //boardercheck
                         continue;
 
                     if (cards[currentX + 1, currentY].activeSelf == true) //kollar om korter dir är true
@@ -74,16 +74,45 @@ public class MapGenerator : MonoBehaviour
 
                 default:
                     currentY += 1; //går upp
-                    for (int i = 0; i < 2; i++)
+                    if (currentY >= ySize)
+                        break;
+
+                    cards[currentX, currentY].SetActive(true);
+                    if (currentX == 0 && cards[currentX + 1, currentY - 1].activeSelf) //om jag e noll kolla höger ner
                     {
+                        currentY += 1; //går upp
+                        if (currentY >= ySize)
+                            break;
+
                         cards[currentX, currentY].SetActive(true);
+                    }
+
+                    else if (currentX == 0 && cards[currentX + 1, currentY - 1].activeSelf == false)
+                        break;
+
+                    else if (currentX == xSize - 1 && cards[currentX - 1, currentY - 1].activeSelf) //om jag är kant kolla vänster ner
+                    {
+                        currentY += 1; //går upp
+                        if (currentY >= ySize)
+                            break;
+                        cards[currentX, currentY].SetActive(true);
+                    }
+
+                    else if (currentY != 0 && cards[currentX - 1, currentY - 1].activeSelf || cards[currentX + 1, currentY - 1].activeSelf)
+                    {
+                        currentY += 1; //går upp
+                        if (currentY >= ySize)
+                            break;
+                        cards[currentX, currentY].SetActive(true);
+
                     }
                     break;
             }
 
             if (currentY >= ySize)
                 break;
-         
+
+            //cards[currentX, currentY].SetActive(true);
             yield return new WaitForSeconds(0.1f);
         }
 
