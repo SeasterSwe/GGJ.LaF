@@ -37,7 +37,7 @@ public class CardFlip : MonoBehaviour
                 }
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    shffleCard.FlipThisCard(hit.transform);
+                    shffleCard.FlipThisCardAround(hit.transform);
                 }
 
                 if(Input.GetButtonDown("Fire2") && cTwo != null)

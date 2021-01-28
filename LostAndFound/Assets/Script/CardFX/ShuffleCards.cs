@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class ShuffleCards : MonoBehaviour
 {
-    public Transform cardOne;
-    public Transform cardTwo;
-    public Transform cardTree;
-
     public bool busy;
-
-
+    int rotSpeed = 4;
     void Start()
     {
     }
@@ -41,6 +36,11 @@ public class ShuffleCards : MonoBehaviour
         StartCoroutine(FlipCardClose(card));
     }
 
+    public void FlipThisCardAround(Transform card)
+    {
+        StartCoroutine(FlipCard360(card));
+    }
+
     private IEnumerator SwapCards(Transform cardOne, Transform cardTwo)
     {
         busy = true;
@@ -60,8 +60,7 @@ public class ShuffleCards : MonoBehaviour
             cardOne.position = Quaternion.Euler(dir * angle) * dirOne + midPoint;
             cardTwo.position = Quaternion.Euler(dir * angle) * dirTwo + midPoint;
             yield return new WaitForEndOfFrame();
-            angle++;
-            print(angle);
+            angle+= rotSpeed;
         }
 
         cardOne.gameObject.GetComponent<Card>().busy = false;
@@ -78,7 +77,7 @@ public class ShuffleCards : MonoBehaviour
         {
             busy = true;
             card.rotation = Quaternion.Euler(0, 0, r);
-            r++;
+            r+=rotSpeed;
             yield return new WaitForEndOfFrame();
         }
 
@@ -96,7 +95,26 @@ public class ShuffleCards : MonoBehaviour
         {
             busy = true;
             card.rotation = Quaternion.Euler(0, 0, r);
-            r--;
+            r-=rotSpeed;
+            yield return new WaitForEndOfFrame();
+        }
+
+        card.gameObject.GetComponent<Card>().open = false;
+        card.gameObject.GetComponent<Card>().busy = false;
+        busy = false;
+    }
+
+    private IEnumerator FlipCard360(Transform card)
+    {
+        busy = true;
+        card.gameObject.GetComponent<Card>().busy = true;
+        int r = (int)card.eulerAngles.z;
+        int rTo = r + 360;
+        while (r <= rTo)
+        {
+            busy = true;
+            card.rotation = Quaternion.Euler(0, 0, r);
+            r+=rotSpeed;
             yield return new WaitForEndOfFrame();
         }
 
