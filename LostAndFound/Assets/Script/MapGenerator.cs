@@ -23,6 +23,11 @@ public class MapGenerator : MonoBehaviour
     /// </summary>
     List<Transform> path = new List<Transform>();
 
+    [Header("Card types")]
+    public GameObject evilCardPreFab;
+    public GameObject neutralCardPreFab;
+    public GameObject goodCardPreFab;
+
     void Start()
     {
         MakeGrid(cardsX, cardsY);
@@ -40,14 +45,57 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
+                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false);
             }
         }
         StartCoroutine(GeneratePath(cardsX, cardsY));
-        
+    }
+
+    private void GenerateAPath()
+    {
+        int itt = 0;
+        int y = 0;
+        int x = (int)(cardsX * 0.5f);
+        List<GameObject> pathRoute = new List<GameObject>();
+        while (y < cardsY - 1)
+        {
+            itt++;
+            if (Random.Range(0, 10) > 5)
+            {
+                y++;
+            }
+            else
+            {
+                if (Random.Range(0, 10) > 5 && x + 1 < cardsX)
+                {
+                    if (x + 1 < cardsX)
+                        x++;
+                    else
+                        x--;
+                }
+                else
+                {
+                    if (x - 1 > -1)
+                        x--;
+                    else
+                        x++;
+                }
+            }
+            print("y : " + y + " itt : " + itt);
+            pathRoute.Add(cards[x, y]);
+        }
+
+
+        foreach (GameObject o in pathRoute)
+        {
+            o.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
+        }
+
     }
 
     IEnumerator GeneratePath(int xSize, int ySize)
     {
+        yield return null;
         int startCardX = Random.Range(2, xSize - 2);
         int startY = 0;
         cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
@@ -142,7 +190,9 @@ public class MapGenerator : MonoBehaviour
     void MakePathCardAndSpin(int x, int y)
     {
         path.Add(cards[x, y].transform);
-        cards[x, y].GetComponent<Card>().iAmPath = true;
+        //cards[x, y].GetComponent<Card>().iAmPath = true;
+        cards[x, y].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true);
+
         gm.cardShuffle.FlipThisCardOpen(cards[x, y].transform);
     }
 
