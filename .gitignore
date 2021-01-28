@@ -73,3 +73,4 @@ crashlytics-build.properties
 [Aa]ssets/[Ss]treamingAssets/aa/*
 Fundamentals 15/Assets/Scenes/LinusTest.unity
 Fundamentals 15/Assets/Scenes/LinusTest.unity.meta
+*.json
