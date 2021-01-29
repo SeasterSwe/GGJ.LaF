@@ -32,12 +32,18 @@ public class MapGenerator : MonoBehaviour
 
     public void ResetMap(int level)
     {
-        path = new List<Transform>();
         StartCoroutine(EraseMap(level));
     }
 
     IEnumerator EraseMap(int level)
     {
+        while (gm.IsBusy())
+        {
+            yield return null;
+        }
+
+        gm.SetBusy(true, "Eraseing Map");
+        path = new List<Transform>();
         for (int y = 0; y < cardsY; y++)
         {
             for (int x = 0; x < cardsX; x++)
@@ -59,6 +65,8 @@ public class MapGenerator : MonoBehaviour
 
     void MakeGrid(int xSize, int ySize)
     {
+        gm.SetBusy(true, "Building Level");
+
         cards = new GameObject[xSize, ySize];
 
         for (int x = 0; x < xSize; x++)
@@ -181,7 +189,7 @@ public class MapGenerator : MonoBehaviour
 
         gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f),0 , cardsX, cardsY, true);
 
-
+        gm.SetBusy(false, "Level Compleated");
     }
 
     //SÅ FUKKI@ J#VLA CLEAN CODE Alltså........

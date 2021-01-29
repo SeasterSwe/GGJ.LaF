@@ -21,16 +21,18 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CheckInput()
     {
-        if (locked == true)
+        if (!gm.IsBusy())
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (locked == true)
             {
-                Move(0, 0);
-                locked = false;
-                return;
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    Move(0, 0);
+                    locked = false;
+                    return;
+                }
             }
-        }
-        
+
             if (Input.GetKeyDown(KeyCode.D))
             {
                 Move(1, 0);
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Move(0, -1);
             }
+        }
     }
 
     public void SetPlayerPosition(int x, int z, int maxX, int maxZ, bool freeze)
