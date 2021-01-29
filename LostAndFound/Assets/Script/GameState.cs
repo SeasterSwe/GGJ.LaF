@@ -89,18 +89,21 @@ public class GameState : MonoBehaviour
 
     public void StartGoalSecquence()
     {
-        hud.playerTxtHolder.text = "YOU WIN - FINISH HER!" +"\n" + "Score : " + plStats.score;
-        Instantiate(WinFX, transform.position, Quaternion.identity);
-        print("YOU WIN - FINISH HER!");
+        if (!IsBusy())
+        {
+            hud.playerTxtHolder.text = "YOU WIN - FINISH HER!" + "\n" + "Score : " + plStats.score;
+            Instantiate(WinFX, transform.position, Quaternion.identity);
+            print("YOU WIN - FINISH HER!");
 
 
-        StartCoroutine(GoalSecquence());
+            StartCoroutine(GoalSecquence());
+        }
     }
 
     IEnumerator GoalSecquence()
     {
-
         SetBusy(true, "Player Congrats");
+
         yield return new WaitForSeconds(3);
         level++;
         SetBusy(false, "Player Congrats Over");
@@ -109,13 +112,16 @@ public class GameState : MonoBehaviour
 
     public void StartDeathSequence()
     {
-        hud.UpdatePlayerText("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!" + "\n" + plStats.score);
-        if (plScore < plStats.score)
+        if (!IsBusy())
         {
-            plScore = plStats.score;
-            hud.UpdateHiScore("Hiscore : " + plScore);
+            hud.UpdatePlayerText("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!" + "\n" + plStats.score);
+            if (plScore < plStats.score)
+            {
+                plScore = plStats.score;
+                hud.UpdateHiScore("Hiscore : " + plScore);
+            }
+            StartCoroutine(ResetGameIn(3));
         }
-        StartCoroutine(ResetGameIn(3));
     }
 
     public IEnumerator ResetGameIn(float time)
