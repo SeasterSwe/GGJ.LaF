@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Complete()
     {
-       // gm.hud.AddPlayerScore(card.score);
+        gm.plStats.AddPlayerScore(card.score);
         Instantiate(particle, transform.position + (Vector3.up * 0.5f), particle.transform.rotation);
         if (card.iAmGoal) ///Win the game
         {
