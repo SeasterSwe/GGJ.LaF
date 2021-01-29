@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -48,9 +49,11 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = 0; x < cardsX; x++)
             {
+                cards[x, y].transform.DOScale(Vector3.zero, 0.1f);
+                yield return new WaitForSeconds(0.1f);
                 Destroy(cards[x, y]);
             }
-            yield return new WaitForSeconds(0.5f);
+           // yield return new WaitForSeconds(flipTime);
         }
         yield return null;
 
@@ -77,10 +80,10 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
-                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false, false, x,y);
+                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab.transform.GetChild(0).gameObject, -2, false, false, x,y);
             }
         }
-        //        StartCoroutine(GeneratePath(cardsX, cardsY));
+        //StartCoroutine(GeneratePath(cardsX, cardsY));
 
         StartCoroutine(TakeABreak());
     }
@@ -138,10 +141,10 @@ public class MapGenerator : MonoBehaviour
 
         //Convert to array and set card propetys
         GameObject[] listofPath = pathRoute.ToArray();
-        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab, 0, true, true);
+        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 0, true, true);
         for (int i = 1; i < listofPath.Length; i++)
         {
-            listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true, false);
+            listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab.transform.GetChild(0).gameObject, 0, true, false);
         }
 
         //Start the fun stuff
@@ -153,7 +156,7 @@ public class MapGenerator : MonoBehaviour
         for (int y = 0; y < listOfPath.Length; y++)
         {
             gm.cardShuffle.FlipThisCardOpen(listOfPath[y].transform);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(flipTime);
         }
 
         Card PrincessCard = listOfPath[0].GetComponent<Card>();
@@ -181,7 +184,7 @@ public class MapGenerator : MonoBehaviour
         for (int y = listOfPath.Length - 1; y > -1; y--)
         {
             gm.cardShuffle.FlipThisCardClose(listOfPath[y].transform);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(flipTime);
         }
 
         //cards = SortGridByPlace(cards);
@@ -325,29 +328,4 @@ public class MapGenerator : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
     }
-
-    //bredd antal kort
-    //höjd antal kort
-
-    //sätta start kort i base
-
-    //loop
-    //ska jag gå fram? ja/nej
-    //annars sida? om kant gå andra sida
-    //quit loop om höjd är höjd
-
-    //future
-    //gå höger 1-2 gånger
-    //gå vänster 
-
-    //istället för else möjligen
-    //else if (currentY != 0 && cards[currentX - 1, currentY - 1].GetComponent<Card>().iAmPath || cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath)
-    //{
-    //    currentY += 1; //går upp
-    //    if (currentY >= ySize)
-    //        break;
-
-    //    MakePathCardAndSpin(currentX, currentY);
-    //}
-
 }
