@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             transform.DOMoveZ(MapGenerator.cards[xPos, zPos].transform.position.z, moveSpeed).SetEase(Ease.InOutQuad).OnComplete(Complete);
             normalY = transform.position.y;
             transform.DOMoveY(transform.position.y + 2, moveSpeed * 0.5f).SetEase(Ease.OutQuad).OnComplete(JumpDown);
-            gm.hud.AddPlayerScore(card.score);
+            //gm.hud.AddPlayerScore(card.score);
         }
         else
         {
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Complete()
     {
-        gm.hud.AddPlayerScore(card.score);
+       // gm.hud.AddPlayerScore(card.score);
         Instantiate(particle, transform.position + (Vector3.up * 0.5f), particle.transform.rotation);
         if (card.iAmGoal) ///Win the game
         {

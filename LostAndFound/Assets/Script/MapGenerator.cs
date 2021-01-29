@@ -104,7 +104,7 @@ public class MapGenerator : MonoBehaviour
     //Roberts Test
     IEnumerator TakeABreak()
     {
-        yield return new WaitForSeconds(0.4f); //ändra till större ifall vissa blir stora
+        yield return new WaitForSeconds(1f); //ändra till större ifall vissa blir stora
         GenerateAPath();
     }
     private void GenerateAPath()
