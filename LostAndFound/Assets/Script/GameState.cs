@@ -84,14 +84,16 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
+        hud.playerTxtHolder.text = "Find the princess!" + "\n" + "Score : " + plStats.score;
         mapGen.StartGenerating(level);
+        hud.UpdateHiScore("Bestest");
     }
 
     public void StartGoalSecquence()
     {
         if (!IsBusy())
         {
-            hud.playerTxtHolder.text = "YOU WIN - FINISH HER!" + "\n" + "Score : " + plStats.score;
+            hud.playerTxtHolder.text = "You found the princess!" + "\n" + "Score : " + plStats.score;
             print("YOU WIN - FINISH HER!");
 
 
@@ -104,6 +106,9 @@ public class GameState : MonoBehaviour
         SetBusy(true, "Player Congrats");
 
         yield return new WaitForSeconds(3);
+
+        hud.playerTxtHolder.text = "Next Level" + "\n" + "Score : " + plStats.score;
+
         level++;
         SetBusy(false, "Player Congrats Over");
         mapGen.ResetMap(level);
@@ -113,11 +118,11 @@ public class GameState : MonoBehaviour
     {
         if (!IsBusy())
         {
-            hud.UpdatePlayerText("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!" + "\n" + plStats.score);
+            hud.UpdatePlayerText("Your journey ends here." + "\n" + "score : "+ plStats.score);
             if (plScore < plStats.score)
             {
                 plScore = plStats.score;
-                hud.UpdateHiScore("Hiscore : " + plScore);
+                hud.UpdateHiScore("Bestest : " + plScore);
             }
             StartCoroutine(ResetGameIn(3));
         }
@@ -132,7 +137,12 @@ public class GameState : MonoBehaviour
         if (level > 11)
             level = 11;
 
+        
+
         SetBusy(false, "Player Death Over");
+
+        
+
         ResetPlayer();
         mapGen.ResetMap(level);
     }
@@ -141,5 +151,6 @@ public class GameState : MonoBehaviour
     {
         plStats.hp = 5;
         plStats.score = 0;
+        hud.UpdatePlayerText("");
     }
 }

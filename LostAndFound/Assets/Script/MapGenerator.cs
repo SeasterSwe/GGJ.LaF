@@ -34,10 +34,11 @@ public class MapGenerator : MonoBehaviour
 
     public void ResetMap(int level)
     {
+       
         StartCoroutine(EraseMap(level));
     }
 
-    int robertDatorEförSnabb;
+    int robertDatorEförSnabb; //Jakobs hjärna är för slö
     IEnumerator EraseMap(int level)
     {
         robertDatorEförSnabb = level;
@@ -211,6 +212,7 @@ public class MapGenerator : MonoBehaviour
 
         gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f), 0, cardsX, cardsY, true);
 
+        gm.hud.playerTxtHolder.text = ("GO! Find her\n-Press UP-");
         gm.SetBusy(false, "Level Compleated");
     }
 

@@ -15,13 +15,13 @@ public class PlayerStats : MonoBehaviour
     public void AddPlayerScore(int num)
     {
         score += num;
-        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + score);
+        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
     }
 
     public void TakeDamage(int dmg)
     {
         hp += dmg;
-        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + score);
+        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
         if (hp <= 0)
         {
             Death();
