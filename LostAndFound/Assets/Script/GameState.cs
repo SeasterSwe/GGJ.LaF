@@ -123,6 +123,10 @@ public class GameState : MonoBehaviour
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
         level = 3;
+
+        if (level > 11)
+            level = 11;
+
         SetBusy(false, "Player Death Over");
         ResetPlayer();
         mapGen.ResetMap(level);
