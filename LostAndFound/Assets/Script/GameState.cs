@@ -92,7 +92,6 @@ public class GameState : MonoBehaviour
         if (!IsBusy())
         {
             hud.playerTxtHolder.text = "YOU WIN - FINISH HER!" + "\n" + "Score : " + plStats.score;
-            Instantiate(WinFX, transform.position, Quaternion.identity);
             print("YOU WIN - FINISH HER!");
 
 
