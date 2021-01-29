@@ -49,24 +49,30 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = 0; x < cardsX; x++)
             {
-                cards[x, y].transform.DOScale(Vector3.zero, 0.1f);
-                yield return new WaitForSeconds(0.1f);
-                Destroy(cards[x, y]);
+                cards[x, y].transform.DOScale(Vector3.zero, 0.5f);
             }
-           // yield return new WaitForSeconds(flipTime);
+            yield return new WaitForSeconds(0.2f);
+            // yield return new WaitForSeconds(flipTime);
+        }
+        for (int y = 0; y < cardsY; y++)
+        {
+            for (int x = 0; x < cardsX; x++)
+            {
+                Destroy(cards[x, y].gameObject);
+            }
         }
         yield return null;
 
-       StartGenerating(level);
+        StartGenerating(level);
     }
 
     public void StartGenerating(int difficultyLevel)
     {
         cardsY = difficultyLevel;
-        MakeGrid(cardsX, cardsY);
+        StartCoroutine(MakeGrid(cardsX, cardsY));
     }
 
-    void MakeGrid(int xSize, int ySize)
+    IEnumerator MakeGrid(int xSize, int ySize)
     {
         gm.SetBusy(true, "Building Level");
 
@@ -80,10 +86,17 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
-                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab.transform.GetChild(0).gameObject, -2, false, false, x,y);
+                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab.transform.GetChild(0).gameObject, -2, false, false, x, y);
+                yield return null;
+                cards[x, y].gameObject.transform.localScale = Vector3.zero;
             }
+            yield return new WaitForEndOfFrame();
+            for (int y = 0; y < ySize; y++)
+            {
+                cards[x, y].gameObject.transform.DOScale(Vector3.one, 0.5f);
+            }
+            yield return new WaitForSeconds(0.2f);
         }
-        //StartCoroutine(GeneratePath(cardsX, cardsY));
 
         StartCoroutine(TakeABreak());
     }
@@ -91,7 +104,7 @@ public class MapGenerator : MonoBehaviour
     //Roberts Test
     IEnumerator TakeABreak()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.4f); //ändra till större ifall vissa blir stora
         GenerateAPath();
     }
     private void GenerateAPath()
@@ -99,7 +112,7 @@ public class MapGenerator : MonoBehaviour
         int r = Random.Range(0, 10);
         int y = 0;
         int x = (int)(cardsX * 0.5f);
-        
+
         //First card = Princess
         //Create a list of following pathRoute
         GameObject firstCard = cards[x, y];
@@ -161,7 +174,6 @@ public class MapGenerator : MonoBehaviour
 
         Card PrincessCard = listOfPath[0].GetComponent<Card>();
 
-        int x = 0;
         for (int y = 1; y < listOfPath.Length; y++)
         {
             Card otherCard = listOfPath[y].GetComponent<Card>();
@@ -178,7 +190,6 @@ public class MapGenerator : MonoBehaviour
             {
                 yield return null;
             }
-            x = y;
         }
 
         for (int y = listOfPath.Length - 1; y > -1; y--)
@@ -187,145 +198,8 @@ public class MapGenerator : MonoBehaviour
             yield return new WaitForSeconds(flipTime);
         }
 
-        //cards = SortGridByPlace(cards);
-
-
-        gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f),0 , cardsX, cardsY, true);
+        gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f), 0, cardsX, cardsY, true);
 
         gm.SetBusy(false, "Level Compleated");
-    }
-
-    //SÅ FUKKI@ J#VLA CLEAN CODE Alltså........
-    GameObject[,] SortGridByPlace(GameObject[,] oldGrid)
-    {
-        GameObject[,] newGrid = new GameObject[cardsX, cardsY];
-        for(int x = 0; x < cardsX; x++)
-        {
-            for(int y = 0; y < cardsY; y++)
-            {
-                int newX = (int)(oldGrid[x, y].transform.position.x / cardWidth);
-                int newY = (int)(oldGrid[x, y].transform.position.z / cardHeight);
-                newGrid[newX, newY] = oldGrid[x,y];
-                cards[x, y].GetComponent<Card>().x = newX;
-                cards[x, y].GetComponent<Card>().y = newY;
-            }
-        }
-        return newGrid;
-    }
-    //Roberts test slut//
-    IEnumerator GeneratePath(int xSize, int ySize)
-    {
-        yield return null;
-        int startCardX = Random.Range(2, xSize - 2);
-        int startY = 0;
-        // cards[startCardX, startY].GetComponent<Card>().iAmPath = true;
-        // ChangeColor(startCardX, startY);
-
-        PlayerMovement playerMove = player.GetComponent<PlayerMovement>();
-        playerMove.xPos = startCardX;
-        playerMove.zPos = startY;
-        player.transform.position = cards[startCardX, startY].transform.position + (Vector3.up * 0.01f);
-        playerMove.maxXpos = xSize;
-        playerMove.maxZpos = ySize;
-
-        int currentY = startY;
-        int currentX = startCardX;
-
-        while (currentY != ySize)
-        {
-            int direction = Random.Range(0, 3);
-            switch (direction)
-            {
-                case 0:
-                    if (currentX - 1 < 0) //boardercheck
-                        continue;
-
-                    if (cards[currentX - 1, currentY].GetComponent<Card>().iAmPath == true) //kollar om korter dir är true
-                        continue;
-
-                    currentX -= 1; //går höger
-                    MakePathCardAndSpin(currentX, currentY);
-                    break;
-
-                case 1:
-                    if (currentX + 1 >= xSize - 1) //boardercheck
-                        continue;
-
-                    if (cards[currentX + 1, currentY].GetComponent<Card>().iAmPath == true) //kollar om korter dir är true
-                        continue;
-
-                    currentX += 1; //går höger
-                    MakePathCardAndSpin(currentX, currentY);
-                    break;
-
-                default:
-                    currentY += 1; //går upp
-                    if (currentY >= ySize)
-                        break;
-
-                    MakePathCardAndSpin(currentX, currentY);
-
-                    bool leftDown = (currentX == 0) ? false : cards[currentX - 1, currentY - 1].GetComponent<Card>().iAmPath;
-                    bool rightDown = (currentX == xSize - 1) ? false : cards[currentX + 1, currentY - 1].GetComponent<Card>().iAmPath;
-
-                    if (leftDown)
-                    {
-                        currentY += 1; //går upp
-                        if (currentY >= ySize)
-                            break;
-
-                        MakePathCardAndSpin(currentX, currentY);
-                    }
-                    else if (rightDown)
-                    {
-                        currentY += 1; //går upp
-                        if (currentY >= ySize)
-                            break;
-
-                        MakePathCardAndSpin(currentX, currentY);
-                    }
-                    break;
-            }
-
-            if (currentY >= ySize)
-            {
-                //last card aka win card
-                ChangeColor(currentX, currentY - 1);
-                break;
-            }
-
-            yield return new WaitForSeconds(flipTime);
-        }
-
-        yield return new WaitForEndOfFrame();
-
-        StartCoroutine(ClosePath());
-    }
-
-    void ChangeColor(int x, int y)
-    {
-        cards[x, y].GetComponent<Card>().ChangeColor();
-        cards[x, y].GetComponent<Card>().SetToCard(finalCardPreFab, 5, true, true);
-    }
-
-    void MakePathCardAndSpin(int x, int y)
-    {
-        path.Add(cards[x, y].transform);
-        //cards[x, y].GetComponent<Card>().iAmPath = true;
-        cards[x, y].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true, false);
-
-        gm.cardShuffle.FlipThisCardOpen(cards[x, y].transform);
-    }
-
-    IEnumerator ClosePath()
-    {
-        yield return new WaitForSeconds(1);
-        int i = 0;
-        while (i < path.Count)
-        {
-            gm.cardShuffle.FlipThisCardClose(path[i]);
-            i++;
-            yield return new WaitForSeconds(0.25f);
-        }
     }
 }
