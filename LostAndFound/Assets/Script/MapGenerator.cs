@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class MapGenerator : MonoBehaviour
 {
+    public bool DestroyRTiles;
     public GameState gm;
     public static GameObject[,] cards;
     public int cardsX;
@@ -93,18 +94,19 @@ public class MapGenerator : MonoBehaviour
             yield return new WaitForEndOfFrame();
             for (int y = 0; y < ySize; y++)
             {
-                cards[x, y].gameObject.transform.DOScale(Vector3.one, 0.5f);
+                if (x == (xSize - 1) && (y == ySize - 1))
+                    cards[x, y].gameObject.transform.DOScale(Vector3.one, 0.5f).OnComplete(GenerateAPath);
+                else
+                    cards[x, y].gameObject.transform.DOScale(Vector3.one, 0.5f);
+
             }
             yield return new WaitForSeconds(0.2f);
         }
-
-        StartCoroutine(TakeABreak());
     }
 
     //Roberts Test
-    IEnumerator TakeABreak()
+    void TakeABreak()
     {
-        yield return new WaitForSeconds(1f); //ändra till större ifall vissa blir stora
         GenerateAPath();
     }
     private void GenerateAPath()
@@ -166,6 +168,9 @@ public class MapGenerator : MonoBehaviour
 
     IEnumerator OpenPath(GameObject[] listOfPath)
     {
+        if(DestroyRTiles)
+            StartCoroutine(DestroyStuff(cardsX, cardsY));
+
         for (int y = 0; y < listOfPath.Length; y++)
         {
             gm.cardShuffle.FlipThisCardOpen(listOfPath[y].transform);
@@ -201,5 +206,26 @@ public class MapGenerator : MonoBehaviour
         gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f), 0, cardsX, cardsY, true);
 
         gm.SetBusy(false, "Level Compleated");
+    }
+
+    IEnumerator DestroyStuff(int x, int y)
+    {
+        int amountofcards = x * y;
+        int destroyAmount = Mathf.FloorToInt(amountofcards * 0.4f);
+        int t = 0;
+        while (t < destroyAmount)
+        {
+            int xRand = Random.Range(0, x);
+            int yRand = Random.Range(0, y);
+            Card card = cards[xRand, yRand].GetComponent<Card>();
+            bool isPath = card.iAmPath;
+            if(!isPath)
+            {
+                card.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+                card.hpDmg = 0;
+                t += 1;
+            }
+        }
+        yield return null;
     }
 }
