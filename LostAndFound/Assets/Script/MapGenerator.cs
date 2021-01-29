@@ -37,8 +37,10 @@ public class MapGenerator : MonoBehaviour
         StartCoroutine(EraseMap(level));
     }
 
+    int robertDatorEförSnabb;
     IEnumerator EraseMap(int level)
     {
+        robertDatorEförSnabb = level;
         while (gm.IsBusy())
         {
             yield return null;
@@ -50,11 +52,16 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = 0; x < cardsX; x++)
             {
-                cards[x, y].transform.DOScale(Vector3.zero, 0.5f);
+                if (x == (cardsX - 1) && (y == cardsY - 1))
+                    cards[x, y].transform.DOScale(Vector3.zero, 0.5f).OnComplete(RobertDatorÄrFörSnabbFörSittEgetBästa);
+                else
+                    cards[x, y].transform.DOScale(Vector3.zero, 0.5f);
             }
             yield return new WaitForSeconds(0.2f);
-            // yield return new WaitForSeconds(flipTime);
         }
+    }
+    void RobertDatorÄrFörSnabbFörSittEgetBästa()
+    {
         for (int y = 0; y < cardsY; y++)
         {
             for (int x = 0; x < cardsX; x++)
@@ -62,9 +69,8 @@ public class MapGenerator : MonoBehaviour
                 Destroy(cards[x, y].gameObject);
             }
         }
-        yield return null;
 
-        StartGenerating(level);
+        StartGenerating(robertDatorEförSnabb);
     }
 
     public void StartGenerating(int difficultyLevel)
