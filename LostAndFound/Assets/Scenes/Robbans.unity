@@ -1390,6 +1390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
   particle: {fileID: 424032312935689908, guid: 59972a7842450ed4f9b358b34b4b63f7, type: 3}
+  moveSpeed: 0.69
   xPos: 0
   zPos: 0
   maxZpos: 0

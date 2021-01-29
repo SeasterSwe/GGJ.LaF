@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class PlayerMovement : MonoBehaviour
 {
     //cardWidth + spaceBetweenCards
@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public GameState gm;
     public GameObject particle;
 
+    public float moveSpeed = 0.3f;
     public int xPos;
     public int zPos;
     public int maxZpos;
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CheckInput()
     {
-        if (!gm.IsBusy())
+        if (!gm.IsBusy() && canMove)
         {
             if (locked == true)
             {
@@ -80,32 +81,59 @@ public class PlayerMovement : MonoBehaviour
             CheckPlayerCard(x, 0);
             return;
         }
-        CheckPlayerCard(x, z);
+        StartCoroutine(CheckPlayerCard(x, z));
     }
-    void CheckPlayerCard(int x, int z)
+    bool canMove = true;
+    Card card;
+    float normalY;
+    IEnumerator CheckPlayerCard(int x, int z)
     {
-        Card card = MapGenerator.cards[xPos + x, zPos + z].GetComponent<Card>();
+        canMove = false;
+        card = MapGenerator.cards[xPos + x, zPos + z].GetComponent<Card>();
 
 
         //Card attrebuts affects player
         gm.cardShuffle.FlipThisCardOpen(card.transform);
         gm.plStats.TakeDamage(card.hpDmg);
 
+        while(card.busy)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
         if (card.iAmPath)
         {
             xPos += x;
             zPos += z;
-            transform.position = MapGenerator.cards[xPos, zPos].transform.position;
-
+            transform.DOMoveX(MapGenerator.cards[xPos, zPos].transform.position.x, moveSpeed).SetEase(Ease.InOutQuad);
+            transform.DOMoveZ(MapGenerator.cards[xPos, zPos].transform.position.z, moveSpeed).SetEase(Ease.InOutQuad).OnComplete(Complete);
+            normalY = transform.position.y;
+            transform.DOMoveY(transform.position.y + 2, moveSpeed * 0.5f).SetEase(Ease.OutQuad).OnComplete(JumpDown);
             gm.hud.AddPlayerScore(card.score);
-
-            if (card.iAmGoal) ///Win the game
-            {
-                gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
-                Instantiate(gm.WinFX, transform.position, Quaternion.identity);
-                print("YOU WIN - FINISH HER!");
-                gm.StartGoalSecquence();
-            }
         }
+        else
+        {
+            canMove = true;
+        }
+    }
+
+    void Complete()
+    {
+        gm.hud.AddPlayerScore(card.score);
+        Instantiate(particle, transform.position + (Vector3.up * 0.5f), particle.transform.rotation);
+        if (card.iAmGoal) ///Win the game
+        {
+            gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
+            Instantiate(gm.WinFX, transform.position, Quaternion.identity);
+            print("YOU WIN - FINISH HER!");
+            gm.StartGoalSecquence();
+        }
+    }
+    void JumpDown()
+    {
+        transform.DOMoveY(normalY, moveSpeed * 0.5f).SetEase(Ease.InQuad);
+        canMove = true;
     }
 }
