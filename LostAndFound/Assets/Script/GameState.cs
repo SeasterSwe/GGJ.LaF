@@ -7,8 +7,13 @@ public class GameState : MonoBehaviour
     [Header("level")]
     public int level = 3;
     public int plScore = 0;
-    public enum GameStates { Go, Busy };
-    public GameStates gameState = GameStates.Go;
+
+
+    [Header("gameState")]
+    public static gameStates currentState;
+    public enum gameStates { Init, shuffleDeck, Busy, Go, win };
+
+    public bool busy;
 
     public MapGenerator mapGen;
     public PlayerMovement plMove;
@@ -18,6 +23,21 @@ public class GameState : MonoBehaviour
 
     [Header ("JSF")]
     public GameObject WinFX;
+
+    public bool IsBusy()
+    {
+        return busy;
+    }
+
+    public void SetBusy(bool b)
+    {
+        busy = b;
+    }
+    public void SetBusy(bool b, string why)
+    {
+        print("StateHolder" + why);
+        busy = b;
+    }
 
 
     private void Awake()
@@ -46,7 +66,6 @@ public class GameState : MonoBehaviour
                 plStats = t.gameObject.GetComponent<PlayerStats>();
                 plStats.gm = this;
             }
-
         }
 
 
@@ -68,15 +87,6 @@ public class GameState : MonoBehaviour
         mapGen.StartGenerating(level);
     }
 
-    public void SetStateToGo()
-    {
-        gameState = GameStates.Go;
-    }
-
-    public void SetStateToBusy()
-    {
-        gameState = GameStates.Busy;
-    }
 
 
     public void StartGoalSecquence()
@@ -86,8 +96,10 @@ public class GameState : MonoBehaviour
 
     IEnumerator GoalSecquence()
     {
+        SetBusy(true, "Player Congrats");
         yield return new WaitForSeconds(3);
         level++;
+        SetBusy(false, "Player Congrats Over");
         mapGen.ResetMap(level);
     }
 }
