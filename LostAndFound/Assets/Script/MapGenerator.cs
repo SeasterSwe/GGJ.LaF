@@ -6,16 +6,17 @@ public class MapGenerator : MonoBehaviour
 {
     public GameState gm;
     public static GameObject[,] cards;
+    public int cardsX;
+    public int cardsY;
+
     public GameObject card;
     public GameObject goodCard;
     public GameObject player;
-    public int cardsX;
-    public int cardsY;
 
     public float flipTime;
 
     float cardWidth = 2f;
-    float cardHeight = 3f;
+    public float cardHeight = 3f;
     float spaceBetweenCards = 0.3f;
 
     /// <summary>
@@ -67,7 +68,7 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
-                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false, false);
+                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab, -2, false, false, x,y);
             }
         }
         //        StartCoroutine(GeneratePath(cardsX, cardsY));
@@ -83,33 +84,33 @@ public class MapGenerator : MonoBehaviour
     }
     private void GenerateAPath()
     {
-        int itt = Random.Range(0, 10);
+        int r = Random.Range(0, 10);
         int y = 0;
         int x = (int)(cardsX * 0.5f);
-
+        
+        //First card = Princess
+        //Create a list of following pathRoute
         GameObject firstCard = cards[x, y];
-
         List<GameObject> pathRoute = new List<GameObject>();
         pathRoute.Add(firstCard);
 
         while (y < cardsY - 1)
         {
-
             if (Random.Range(0, 10) > 5)
             {
                 y++;
-                itt = Random.Range(0, 10);
+                r = Random.Range(0, 10);
             }
             else
             {
-                if (itt > 5)
+                if (r > 5)
                 {
                     if (x + 1 < cardsX)
                         x++;
                     else
                     {
                         y++;
-                        itt = Random.Range(0, 10);
+                        r = Random.Range(0, 10);
                     }
                 }
                 else
@@ -119,22 +120,22 @@ public class MapGenerator : MonoBehaviour
                     else
                     {
                         y++;
-                        itt = Random.Range(0, 10);
+                        r = Random.Range(0, 10);
                     }
                 }
             }
             pathRoute.Add(cards[x, y]);
         }
 
+        //Convert to array and set card propetys
         GameObject[] listofPath = pathRoute.ToArray();
-
         listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab, 0, true, true);
-        for (int i = 0; i < listofPath.Length; i++)
+        for (int i = 1; i < listofPath.Length; i++)
         {
             listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab, 0, true, false);
         }
 
-
+        //Start the fun stuff
         StartCoroutine(OpenPath(listofPath));
     }
 
@@ -146,9 +147,20 @@ public class MapGenerator : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
+        Card PrincessCard = listOfPath[0].GetComponent<Card>();
+
         int x = 0;
         for (int y = 1; y < listOfPath.Length; y++)
         {
+            Card otherCard = listOfPath[y].GetComponent<Card>();
+            int swapX = otherCard.x;
+            int swapY = otherCard.y;
+
+            otherCard.setXY(PrincessCard.x, PrincessCard.y);
+            cards[PrincessCard.x, PrincessCard.y] = listOfPath[y];
+            PrincessCard.setXY(swapX, swapY);
+            cards[swapX, swapY] = PrincessCard.gameObject;
+
             gm.cardShuffle.SwapCardOneWithTwo(listOfPath[0].transform, listOfPath[y].transform);
             while (listOfPath[0].GetComponent<Card>().busy)
             {
@@ -157,11 +169,36 @@ public class MapGenerator : MonoBehaviour
             x = y;
         }
 
-        for (int y = listOfPath.Length-1; y >-1; y--)
+        for (int y = listOfPath.Length - 1; y > -1; y--)
         {
             gm.cardShuffle.FlipThisCardClose(listOfPath[y].transform);
             yield return new WaitForSeconds(0.5f);
         }
+
+        //cards = SortGridByPlace(cards);
+
+
+        gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f),0 , cardsX, cardsY, true);
+
+
+    }
+
+    //SÅ FUKKI@ J#VLA CLEAN CODE Alltså........
+    GameObject[,] SortGridByPlace(GameObject[,] oldGrid)
+    {
+        GameObject[,] newGrid = new GameObject[cardsX, cardsY];
+        for(int x = 0; x < cardsX; x++)
+        {
+            for(int y = 0; y < cardsY; y++)
+            {
+                int newX = (int)(oldGrid[x, y].transform.position.x / cardWidth);
+                int newY = (int)(oldGrid[x, y].transform.position.z / cardHeight);
+                newGrid[newX, newY] = oldGrid[x,y];
+                cards[x, y].GetComponent<Card>().x = newX;
+                cards[x, y].GetComponent<Card>().y = newY;
+            }
+        }
+        return newGrid;
     }
     //Roberts test slut//
     IEnumerator GeneratePath(int xSize, int ySize)
@@ -174,10 +211,10 @@ public class MapGenerator : MonoBehaviour
 
         PlayerMovement playerMove = player.GetComponent<PlayerMovement>();
         playerMove.xPos = startCardX;
-        playerMove.yPos = startY;
+        playerMove.zPos = startY;
         player.transform.position = cards[startCardX, startY].transform.position + (Vector3.up * 0.01f);
         playerMove.maxXpos = xSize;
-        playerMove.maxYpos = ySize;
+        playerMove.maxZpos = ySize;
 
         int currentY = startY;
         int currentX = startCardX;

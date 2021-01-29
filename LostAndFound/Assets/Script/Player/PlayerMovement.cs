@@ -9,71 +9,98 @@ public class PlayerMovement : MonoBehaviour
     public GameState gm;
 
     public int xPos;
-    public int yPos;
-    public int maxYpos;
+    public int zPos;
+    public int maxZpos;
     public int maxXpos;
+
+    public bool locked;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        CheckInput();
+    }
+    private void CheckInput()
+    {
+        if (locked == true)
         {
-            Move(1, 0);
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Move(0, 0);
+                locked = false;
+                return;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Move(-1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Move(0, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Move(0, -1);
-        }
+        
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                Move(1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Move(-1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Move(0, 1);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Move(0, -1);
+            }
+    }
+
+    public void SetPlayerPosition(int x, int z, int maxX, int maxZ, bool freeze)
+    {
+        xPos = x;
+        zPos = z;
+        maxXpos = maxX -1;
+        maxZpos = maxZ -1;
+        locked = freeze;
+
+        transform.position = MapGenerator.cards[xPos, zPos].transform.position;
+        transform.position -= Vector3.forward * gm.mapGen.cardHeight;
     }
     void Move(int x, int z)
     {
-        if(xPos + x > maxXpos || xPos + x < 0)
+        if (xPos + x > maxXpos || xPos + x < 0)
         {
             x = 0;
+            CheckPlayerCard(0, z);
+            return;
         }
 
-        if(yPos + z > maxYpos || yPos + z < 0)
+        if (zPos + z > maxZpos || zPos + z < 0)
         {
             z = 0;
+            CheckPlayerCard(x, 0);
+            return;
         }
+        CheckPlayerCard(x, z);
+    }
+    void CheckPlayerCard(int x, int z)
+    {
+        Card card = MapGenerator.cards[xPos + x, zPos + z].GetComponent<Card>();
 
-        Card card = MapGenerator.cards[xPos + x, yPos + z].GetComponent<Card>();
 
+        //Card attrebuts affects player
         gm.cardShuffle.FlipThisCardOpen(card.transform);
-            gm.plStats.TakeDamage(card.hpDmg);
+        gm.plStats.TakeDamage(card.hpDmg);
+
         if (card.iAmPath)
         {
             xPos += x;
-            yPos += z;
-//            xPos = Mathf.Clamp(xPos, 0, maxXpos - 1);
-//            yPos = Mathf.Clamp(yPos, 0, maxYpos - 1);
-            transform.position = MapGenerator.cards[xPos, yPos].transform.position;
+            zPos += z;
+            transform.position = MapGenerator.cards[xPos, zPos].transform.position;
 
-            gm.hud.AddPlayerScore(1);
+            gm.hud.AddPlayerScore(card.score);
 
             if (card.iAmGoal) ///Win the game
             {
-                gm.hud.AddPlayerScore(9);
                 gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
                 Instantiate(gm.WinFX, transform.position, Quaternion.identity);
                 print("YOU WIN - FINISH HER!");
                 gm.StartGoalSecquence();
             }
         }
-
-
-       
-    }
-
-    void GetCard()
-    {
-
     }
 }
