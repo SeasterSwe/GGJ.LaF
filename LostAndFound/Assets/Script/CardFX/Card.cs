@@ -32,7 +32,7 @@ public class Card : MonoBehaviour
         y = yInList;
     }
 
-    public void SetToCard(GameObject newCard, int dmg, bool path, bool final, int xInList, int yInList)
+    public void SetToCard(GameObject newCard, int dmg, int point, bool path, bool final, int xInList, int yInList)
     {
         x = xInList;
         y = yInList;
@@ -46,10 +46,11 @@ public class Card : MonoBehaviour
         iAmPath = path;
         iAmGoal = final;
         hpDmg = dmg;
+        score = point;
         StartCoroutine(swapType(newCard));
     }
 
-    public void SetToCard(GameObject newCard, int dmg, bool path, bool final)
+    public void SetToCard(GameObject newCard, int dmg, int point, bool path, bool final)
     {
         if (hpDmg > 0)
             type = CardType.neutral;
@@ -61,6 +62,7 @@ public class Card : MonoBehaviour
         iAmPath = path;
         iAmGoal = final;
         hpDmg = dmg;
+        score = point;
         StartCoroutine(swapType(newCard));
     }
 

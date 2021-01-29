@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
             zPos += z;
             transform.position = MapGenerator.cards[xPos, zPos].transform.position;
 
-            gm.hud.AddPlayerScore(card.score);
+            gm.plStats.AddPlayerScore(card.score);
 
             if (card.iAmGoal) ///Win the game
             {

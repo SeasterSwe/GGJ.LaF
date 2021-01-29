@@ -86,7 +86,7 @@ public class MapGenerator : MonoBehaviour
                 float zPos = y * (cardHeight + spaceBetweenCards);
                 Vector3 spawnPos = new Vector3(xPos, 0, zPos);
                 cards[x, y] = Instantiate(card, spawnPos, card.transform.rotation);
-                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab.transform.GetChild(0).gameObject, -2, false, false, x, y);
+                cards[x, y].GetComponent<Card>().SetToCard(evilCardPreFab.transform.GetChild(0).gameObject, -2,-1, false, false, x, y);
                 yield return null;
                 cards[x, y].gameObject.transform.localScale = Vector3.zero;
             }
@@ -154,10 +154,10 @@ public class MapGenerator : MonoBehaviour
 
         //Convert to array and set card propetys
         GameObject[] listofPath = pathRoute.ToArray();
-        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 0, true, true);
+        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 0,10, true, true);
         for (int i = 1; i < listofPath.Length; i++)
         {
-            listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab.transform.GetChild(0).gameObject, 0, true, false);
+            listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab.transform.GetChild(0).gameObject, 0,1, true, false);
         }
 
         //Start the fun stuff

@@ -137,7 +137,7 @@ public class BetterMapGen : MonoBehaviour
             if (currentY >= ySize)
             {
                 currentY = ySize;
-                cards[currentX, currentY - 1].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 0, true, true);
+                cards[currentX, currentY - 1].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 0,10, true, true);
                 gm.cardShuffle.FlipThisCard(cards[currentX, currentY - 1].transform);
                 break;
             }
@@ -152,7 +152,7 @@ public class BetterMapGen : MonoBehaviour
     {
         path.Add(cards[x, y].transform);
         cards[x, y].GetComponent<Card>().iAmPath = true;
-        cards[x, y].GetComponent<Card>().SetToCard(neutralCardPreFab.transform.GetChild(0).gameObject, 0, true, false);
+        cards[x, y].GetComponent<Card>().SetToCard(neutralCardPreFab.transform.GetChild(0).gameObject, 0,1, true, false);
         gm.cardShuffle.FlipThisCardOpen(cards[x, y].transform);
     }
 }

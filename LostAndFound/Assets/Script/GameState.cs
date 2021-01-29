@@ -87,8 +87,6 @@ public class GameState : MonoBehaviour
         mapGen.StartGenerating(level);
     }
 
-
-
     public void StartGoalSecquence()
     {
         StartCoroutine(GoalSecquence());

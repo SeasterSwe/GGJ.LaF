@@ -15,14 +15,14 @@ public class HUD : MonoBehaviour
     {
         playerTxtHolder.text = text;
     }
-
+    /*
     public void AddPlayerScore(int num)
     {
         gm.plScore += num;
         UpdatePlayerScore("Score : " + gm.plScore);
     }
-
-    public void UpdatePlayerScore(string text)
+    */
+    public void UpdateHiScore(string text)
     {
         scoreTxtHolder.text = text;
     }
