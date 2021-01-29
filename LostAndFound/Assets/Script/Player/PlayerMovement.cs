@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     //cardWidth + spaceBetweenCards
     //cardHeight + spaceBetweenCards
     public GameState gm;
+    public GameObject particle;
 
     public int xPos;
     public int zPos;
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         locked = freeze;
 
         transform.position = MapGenerator.cards[xPos, zPos].transform.position;
+        Instantiate(particle, transform.position, particle.transform.rotation);
         transform.position -= Vector3.forward * gm.mapGen.cardHeight;
     }
     void Move(int x, int z)
