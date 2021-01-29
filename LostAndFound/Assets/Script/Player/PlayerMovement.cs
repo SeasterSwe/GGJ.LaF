@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             xPos += x;
             zPos += z;
             transform.DOMoveX(MapGenerator.cards[xPos, zPos].transform.position.x, moveSpeed).SetEase(Ease.InOutQuad);
-            transform.DOMoveZ(MapGenerator.cards[xPos, zPos].transform.position.z, moveSpeed).SetEase(Ease.InOutQuad).OnComplete(Complete);
+            transform.DOMoveZ(MapGenerator.cards[xPos, zPos].transform.position.z, moveSpeed).SetEase(Ease.InOutQuad);
             normalY = transform.position.y;
             transform.DOMoveY(transform.position.y + 2, moveSpeed * 0.5f).SetEase(Ease.OutQuad).OnComplete(JumpDown);
             //gm.hud.AddPlayerScore(card.score);
@@ -133,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void JumpDown()
     {
+        Complete();
         transform.DOMoveY(normalY, moveSpeed * 0.5f).SetEase(Ease.InQuad);
         canMove = true;
     }

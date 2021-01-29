@@ -89,11 +89,7 @@ public class GameState : MonoBehaviour
 
     public void StartGoalSecquence()
     {
-        hud.playerTxtHolder.text = "YOU WIN - FINISH HER!" +"\n" + "Score : " + plStats.score;
-        Instantiate(WinFX, transform.position, Quaternion.identity);
-        print("YOU WIN - FINISH HER!");
-
-
+      
         StartCoroutine(GoalSecquence());
     }
 
