@@ -87,6 +87,7 @@ public class GameState : MonoBehaviour
         hud.playerTxtHolder.text = "Find the princess!" + "\n" + "Score : " + plStats.score;
         mapGen.StartGenerating(level);
         hud.UpdateHiScore("Bestest");
+        plStats.HidePlayer();
     }
 
     public void StartGoalSecquence()
@@ -107,9 +108,10 @@ public class GameState : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        hud.playerTxtHolder.text = "Next Level" + "\n" + "Score : " + plStats.score;
-
+        plStats.HidePlayer();
         level++;
+        hud.playerTxtHolder.text = "Level : " + (level -2) + "\n" + "Score : " + plStats.score;
+
         SetBusy(false, "Player Congrats Over");
         mapGen.ResetMap(level);
     }
@@ -130,6 +132,7 @@ public class GameState : MonoBehaviour
 
     public IEnumerator ResetGameIn(float time)
     {
+        plStats.HidePlayer();
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
         level = 3;
@@ -145,6 +148,12 @@ public class GameState : MonoBehaviour
 
         ResetPlayer();
         mapGen.ResetMap(level);
+    }
+
+    public void MapReady()
+    {
+        plStats.ShowPlayer();
+        hud.playerTxtHolder.text = ("GO! Find her\n-Press UP-");
     }
 
     void ResetPlayer()

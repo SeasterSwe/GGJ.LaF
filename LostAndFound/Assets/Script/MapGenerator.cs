@@ -212,7 +212,7 @@ public class MapGenerator : MonoBehaviour
 
         gm.plMove.SetPlayerPosition((int)(cardsX * 0.5f), 0, cardsX, cardsY, true);
 
-        gm.hud.playerTxtHolder.text = ("GO! Find her\n-Press UP-");
+        gm.MapReady();
         gm.SetBusy(false, "Level Compleated");
     }
 

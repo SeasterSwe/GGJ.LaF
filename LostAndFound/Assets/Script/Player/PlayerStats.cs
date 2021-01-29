@@ -10,8 +10,18 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
+       // gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
     }
+    public void HidePlayer()
+    {
+        gameObject.GetComponentInChildren<Renderer>().enabled = false;
+    }
+    
+    public void ShowPlayer()
+    {
+       gameObject.GetComponentInChildren<Renderer>().enabled = true;
+    }
+
     public void AddPlayerScore(int num)
     {
         score += num;
