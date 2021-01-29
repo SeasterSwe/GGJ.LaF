@@ -46,8 +46,9 @@ public class MapGenerator : MonoBehaviour
             }
             yield return new WaitForSeconds(0.5f);
         }
+        yield return null;
 
-        StartGenerating(level);
+       StartGenerating(level);
     }
 
     public void StartGenerating(int difficultyLevel)
