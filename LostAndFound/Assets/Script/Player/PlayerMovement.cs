@@ -101,9 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (card.iAmGoal) ///Win the game
             {
-                gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
-                Instantiate(gm.WinFX, transform.position, Quaternion.identity);
-                print("YOU WIN - FINISH HER!");
+                
                 gm.StartGoalSecquence();
             }
         }

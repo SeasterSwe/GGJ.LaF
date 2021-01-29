@@ -30,12 +30,8 @@ public class PlayerStats : MonoBehaviour
 
     public void Death()
     {
-        gm.hud.UpdatePlayerText("DEATH TO YOUUUUUUUUUUUUUuuuuuuuuuuuuuu...................!" + "\n" + score);
-        if (gm.plScore < score)
-        {
-            gm.plScore = score;
-            gm.hud.UpdateHiScore("Hiscore : " + gm.plScore);
-        }
+        gm.StartDeathSequence();
+        print("Ur dead");
     }
 
     public void AddHP(int add)
