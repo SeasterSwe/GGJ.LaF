@@ -140,6 +140,7 @@ public class GameState : MonoBehaviour
     {
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
+        ResetPlayer();
         plStats.HidePlayer();
         level = 3;
 
@@ -147,7 +148,6 @@ public class GameState : MonoBehaviour
 
         SetBusy(false, "Player Death Over");
 
-        ResetPlayer();
         mapGen.ResetMap(level);
     }
 

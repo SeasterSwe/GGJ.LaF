@@ -8,7 +8,6 @@ public class PlayerStats : MonoBehaviour
     public int hp = 5;
     public int score;
     public Wine_Death DeathFXOne;
-    public GameObject DeathFXTwo;
     public GameObject deathEffekt;
 
     private void Start()
@@ -17,13 +16,13 @@ public class PlayerStats : MonoBehaviour
     }
     public void HidePlayer()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().Clear();
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = false;
         gameObject.GetComponentInChildren<Renderer>().enabled = false;
     }
     
     public void ShowPlayer()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().Clear();   
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = false;   
        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 
@@ -45,7 +44,7 @@ public class PlayerStats : MonoBehaviour
 
     public void Death()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().Clear();
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = ( false);
         Instantiate(DeathFXOne, transform.position, Quaternion.identity);
         GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
         Destroy(bloodClone, 7f);

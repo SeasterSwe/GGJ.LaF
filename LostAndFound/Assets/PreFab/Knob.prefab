@@ -302,7 +302,8 @@ MonoBehaviour:
   hp: 5
   score: 0
   DeathFXOne: {fileID: 8067699039312899901, guid: d9013f7c9c108164c814ff5e05778d60, type: 3}
-  DeathFXTwo: {fileID: 0}
+  DeathFXTwo: {fileID: 7507605181671500757, guid: a566081462c39004f9e54f45e270da73, type: 3}
+  deathEffekt: {fileID: 7507605181671500757, guid: a566081462c39004f9e54f45e270da73, type: 3}
 --- !u!1001 &376873335
 PrefabInstance:
   m_ObjectHideFlags: 0
