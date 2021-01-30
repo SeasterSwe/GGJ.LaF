@@ -16,11 +16,13 @@ public class PlayerStats : MonoBehaviour
     }
     public void HidePlayer()
     {
+        gameObject.GetComponentInChildren<TrailRenderer>().Clear();
         gameObject.GetComponentInChildren<Renderer>().enabled = false;
     }
     
     public void ShowPlayer()
     {
+        gameObject.GetComponentInChildren<TrailRenderer>().Clear();   
        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 
@@ -42,8 +44,8 @@ public class PlayerStats : MonoBehaviour
 
     public void Death()
     {
+        gameObject.GetComponentInChildren<TrailRenderer>().Clear();
         Instantiate(DeathFXOne, transform.position, Quaternion.identity);
-
         gm.StartDeathSequence();
         print("Ur dead");
     }
