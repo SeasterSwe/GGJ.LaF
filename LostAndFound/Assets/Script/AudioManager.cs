@@ -26,20 +26,19 @@ public class AudioManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        foreach (Sound s in sounds)
+     /*   foreach (Sound s in sounds)
         {
-            
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
-        }
+        }*/
     }
 
     private void Start()
     {
-        Play("Menu");
+       // Play("Menu");
     }
 
     public void Play(string name)
@@ -51,6 +50,20 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound : " + name + " not found!");
             return;
         }
+
+        if (s.source == null)
+        {
+            var newSource = new GameObject($"AudioSource_{s.name}"); // Fancy sträng
+            var audioSource = newSource.AddComponent<AudioSource>();
+
+            audioSource.clip = s.clip;
+            //audioSource.volume = volume;
+            audioSource.pitch = s.pitch;
+            audioSource.loop = s.loop;
+            s.source = audioSource;
+
+        }
+
         s.source.Play();
 
         if (PauseMenu.GameIsPaused)
@@ -63,7 +76,10 @@ public class AudioManager : MonoBehaviour
     {
         foreach (Sound s in sounds)
         {
-            s.source.volume = volume;
+            if (s.source != null)
+            {
+          //  s.source.volume = volume;
+            }
         }
     }
 }
