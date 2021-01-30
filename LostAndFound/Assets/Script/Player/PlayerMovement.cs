@@ -17,40 +17,51 @@ public class PlayerMovement : MonoBehaviour
 
     public bool locked;
 
+    [HideInInspector] public bool FirstMoveOfTheDay = true;
     private void Update()
     {
         CheckInput();
     }
     private void CheckInput()
     {
+
         if (!gm.IsBusy() && canMove)
         {
             if (locked == true)
             {
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S))
                 {
                     Move(0, 0);
                     locked = false;
                     return;
                 }
             }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    Move(0, 1);
+                }
 
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                Move(1, 0);
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                    Move(1, 0);
+                }
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                    Move(-1, 0);
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Move(0, -1);
+                }
             }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Move(-1, 0);
-            }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Move(0, 1);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Move(0, -1);
-            }
+
+
         }
     }
 
@@ -58,13 +69,14 @@ public class PlayerMovement : MonoBehaviour
     {
         xPos = x;
         zPos = z;
-        maxXpos = maxX -1;
-        maxZpos = maxZ -1;
+        maxXpos = maxX - 1;
+        maxZpos = maxZ - 1;
         locked = freeze;
 
         transform.position = MapGenerator.cards[xPos, zPos].transform.position;
         Instantiate(particle, transform.position, particle.transform.rotation);
         transform.position -= Vector3.forward * gm.mapGen.cardHeight;
+        transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
     }
     void Move(int x, int z)
     {
@@ -96,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         gm.cardShuffle.FlipThisCardOpen(card.transform);
         gm.plStats.TakeDamage(card.hpDmg);
 
-        while(card.busy)
+        while (card.busy)
         {
             yield return null;
         }
@@ -121,7 +133,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Complete()
     {
-        gm.plStats.AddPlayerScore(card.score);
+        if (card.givenPoint == false)
+        {
+            gm.plStats.AddPlayerScore(card.score);
+            card.givenPoint = true;
+        }
+
         Instantiate(particle, transform.position + (Vector3.up * 0.5f), particle.transform.rotation);
         if (card.iAmGoal) ///Win the game
         {
@@ -135,5 +152,10 @@ public class PlayerMovement : MonoBehaviour
     void JumpDown()
     {
         transform.DOMoveY(normalY, moveSpeed * 0.5f).SetEase(Ease.InQuad).OnComplete(Complete);
+    }
+    public void MoveOutOfScreen()
+    {
+        transform.position = Vector3.forward * 100;
+        transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
     }
 }

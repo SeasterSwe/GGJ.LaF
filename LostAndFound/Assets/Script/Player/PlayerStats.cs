@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
     public GameState gm;
     public int hp = 5;
     public int score;
+    public Wine_Death DeathFXOne;
+    public GameObject deathEffekt;
 
     private void Start()
     {
@@ -14,11 +16,13 @@ public class PlayerStats : MonoBehaviour
     }
     public void HidePlayer()
     {
-        gameObject.GetComponentInChildren<Renderer>().enabled = false;
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;
+        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
     
     public void ShowPlayer()
     {
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;   
        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 
@@ -40,6 +44,11 @@ public class PlayerStats : MonoBehaviour
 
     public void Death()
     {
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = ( false);
+        Instantiate(DeathFXOne, transform.position, Quaternion.identity);
+        GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
+        Destroy(bloodClone, 7f);
+
         gm.StartDeathSequence();
         print("Ur dead");
     }

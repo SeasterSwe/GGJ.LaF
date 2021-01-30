@@ -35,7 +35,7 @@ public class GameState : MonoBehaviour
     }
     public void SetBusy(bool b, string why)
     {
-        print("StateHolder" + why);
+       // print("StateHolder" + why);
         busy = b;
     }
 
@@ -88,6 +88,11 @@ public class GameState : MonoBehaviour
         mapGen.StartGenerating(level);
         hud.UpdateHiScore("Bestest");
         plStats.HidePlayer();
+
+        Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
+        Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
+
+        MoveCam();
     }
 
     public void StartGoalSecquence()
@@ -112,6 +117,7 @@ public class GameState : MonoBehaviour
         level++;
         hud.playerTxtHolder.text = "Level : " + (level -2) + "\n" + "Score : " + plStats.score;
 
+        MoveCam();
         SetBusy(false, "Player Congrats Over");
         mapGen.ResetMap(level);
     }
@@ -126,27 +132,23 @@ public class GameState : MonoBehaviour
                 plScore = plStats.score;
                 hud.UpdateHiScore("Bestest : " + plScore);
             }
-            StartCoroutine(ResetGameIn(3));
+            StartCoroutine(ResetGameIn(2.5f));
         }
     }
 
     public IEnumerator ResetGameIn(float time)
     {
-        plStats.HidePlayer();
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
+        ResetPlayer();
+        plStats.HidePlayer();
+        plMove.FirstMoveOfTheDay = true;
         level = 3;
 
-        if (level > 11)
-            level = 11;
-
-        
+        MoveCam();
 
         SetBusy(false, "Player Death Over");
 
-        
-
-        ResetPlayer();
         mapGen.ResetMap(level);
     }
 
@@ -162,4 +164,13 @@ public class GameState : MonoBehaviour
         plStats.score = 0;
         hud.UpdatePlayerText("");
     }
+
+    void MoveCam()
+    {
+        Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
+        Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
+
+        Camera.main.GetComponent<CameraMovement>().UpdateCamPos(posOne, posTwo);
+    }
+   // Mo
 }
