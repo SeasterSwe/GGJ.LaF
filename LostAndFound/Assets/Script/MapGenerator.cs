@@ -11,6 +11,8 @@ public class MapGenerator : MonoBehaviour
     public int cardsX;
     public int cardsY;
 
+    public int levelCap = 14;
+
     public GameObject card;
     public GameObject goodCard;
     public GameObject player;
@@ -35,7 +37,6 @@ public class MapGenerator : MonoBehaviour
 
     public void ResetMap(int level)
     {
-
         StartCoroutine(EraseMap(level));
     }
 
@@ -78,7 +79,11 @@ public class MapGenerator : MonoBehaviour
 
     public void StartGenerating(int difficultyLevel)
     {
-        cardsY = difficultyLevel;
+        cardsY = difficultyLevel; //< Level cap.......................................................................................
+        if(cardsY > levelCap)
+        {
+            cardsY = levelCap;
+        }
         StartCoroutine(MakeGrid(cardsX, cardsY));
     }
 
