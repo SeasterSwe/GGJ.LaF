@@ -37,6 +37,8 @@ public class PlayerStats : MonoBehaviour
         if (dmg < 0)
         {
             Camera.main.GetComponent<CameraMovement>().ShakeCam();
+            GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
+            Destroy(bloodClone, 7f);
         }
         hp += dmg;
         gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
