@@ -92,7 +92,7 @@ public class GameState : MonoBehaviour
         Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
         Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
 
-        Camera.main.GetComponent<CameraMovement>().CameraStartPos(posOne, posTwo);
+        Camera.main.GetComponent<CameraMovement>().UpdateCamPos(posOne, posTwo);
     }
 
     public void StartGoalSecquence()

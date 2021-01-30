@@ -30,29 +30,30 @@ public class CameraMovement : MonoBehaviour
         float hightLength = baseLength * Mathf.Sin(-angle);
         Vector3 pos = posOne + Vector3.up * hightLength;
         pos += (pos - posTwo).normalized * offsett;
+        this.posOne = posOne;
+        this.posTwo = posTwo;
 
         //transform.rotation = new Quaternion(angle, 0, 0);
-
-
-
-        Vector3 midpoint = (posOne + posTwo) * 0.5f;
-        transform.LookAt(midpoint + Vector3.forward * offsettMid);
-        transform.DOMove(pos, 2f).SetEase(Ease.InQuad);
-    }
-
-    public void CameraStartPos(Vector3 posOne, Vector3 posTwo)
-    {
-        Vector3 dir = (posOne - posTwo);
-        float baseLength = dir.magnitude;
-        float hightLength = baseLength * Mathf.Sin(-angle);
-        Vector3 pos = posOne + Vector3.up * hightLength;
-        pos += (pos - posTwo).normalized * offsett;
+        // transform.DOLocalMove(pos, 2f).SetEase(Ease.InQuad)/*.OnComplete(RotateFacka)*/;
         transform.position = pos;
+    }
 
+    Vector3 posOne;
+    Vector3 posTwo;
+    void RotateFacka()
+    {
         Vector3 midpoint = (posOne + posTwo) * 0.5f;
         transform.LookAt(midpoint + Vector3.forward * offsettMid);
-        transform.DOMove(pos, 2f).SetEase(Ease.InQuad);
     }
+
+    //IEnumerator HejaHeja(Vector3 target)
+    //{
+    //    Vector3 lmao = target - transform.position;
+    //    Quaternion rotation = Quaternion.LookRotation(lmao, Vector3.up);
+    //    transform.DORotateQuaternion(rotation, 1f);
+    //    yield return null;
+    //}
+
     /*
     // Update is called once per frame
     void FallBack()
