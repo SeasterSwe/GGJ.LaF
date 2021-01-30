@@ -130,11 +130,10 @@ public class PlayerMovement : MonoBehaviour
             print("YOU WIN - FINISH HER!");
             gm.StartGoalSecquence();
         }
+        canMove = true;
     }
     void JumpDown()
     {
-        Complete();
-        transform.DOMoveY(normalY, moveSpeed * 0.5f).SetEase(Ease.InQuad);
-        canMove = true;
+        transform.DOMoveY(normalY, moveSpeed * 0.5f).SetEase(Ease.InQuad).OnComplete(Complete);
     }
 }
