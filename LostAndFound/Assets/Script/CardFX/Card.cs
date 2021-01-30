@@ -32,7 +32,7 @@ public class Card : MonoBehaviour
         y = yInList;
     }
 
-    public void SetToCard(GameObject newCard, int dmg, bool path, bool final, int xInList, int yInList)
+    public void SetToCard(GameObject newCard, int dmg, int point, bool path, bool final, int xInList, int yInList)
     {
         x = xInList;
         y = yInList;
@@ -46,10 +46,11 @@ public class Card : MonoBehaviour
         iAmPath = path;
         iAmGoal = final;
         hpDmg = dmg;
+        score = point;
         StartCoroutine(swapType(newCard));
     }
 
-    public void SetToCard(GameObject newCard, int dmg, bool path, bool final)
+    public void SetToCard(GameObject newCard, int dmg, int point, bool path, bool final)
     {
         if (hpDmg > 0)
             type = CardType.neutral;
@@ -61,16 +62,17 @@ public class Card : MonoBehaviour
         iAmPath = path;
         iAmGoal = final;
         hpDmg = dmg;
+        score = point;
         StartCoroutine(swapType(newCard));
     }
 
     IEnumerator swapType(GameObject newCardModel)
     {
-        model ??= transform.GetChild(0).gameObject;
+        GameObject model = transform.GetChild(0).gameObject;
         Destroy(model);
         yield return null;
-        model = Instantiate(newCardModel, transform.position, transform.rotation);
-        model.transform.parent = transform;
+        GameObject newModel = Instantiate(newCardModel, transform.position, newCardModel.transform.rotation);
+        newModel.transform.parent = transform;
     }
 
     public void ChangeColor()

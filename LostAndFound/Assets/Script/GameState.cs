@@ -7,8 +7,13 @@ public class GameState : MonoBehaviour
     [Header("level")]
     public int level = 3;
     public int plScore = 0;
-    public enum GameStates { Go, Busy };
-    public GameStates gameState = GameStates.Go;
+
+
+    [Header("gameState")]
+    public static gameStates currentState;
+    public enum gameStates { Init, shuffleDeck, Busy, Go, win };
+
+    public bool busy;
 
     public MapGenerator mapGen;
     public PlayerMovement plMove;
@@ -18,6 +23,21 @@ public class GameState : MonoBehaviour
 
     [Header ("JSF")]
     public GameObject WinFX;
+
+    public bool IsBusy()
+    {
+        return busy;
+    }
+
+    public void SetBusy(bool b)
+    {
+        busy = b;
+    }
+    public void SetBusy(bool b, string why)
+    {
+        print("StateHolder" + why);
+        busy = b;
+    }
 
 
     private void Awake()
@@ -46,7 +66,6 @@ public class GameState : MonoBehaviour
                 plStats = t.gameObject.GetComponent<PlayerStats>();
                 plStats.gm = this;
             }
-
         }
 
 
@@ -65,29 +84,82 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
+        hud.playerTxtHolder.text = "Find the princess!" + "\n" + "Score : " + plStats.score;
         mapGen.StartGenerating(level);
+        hud.UpdateHiScore("Bestest");
+        plStats.HidePlayer();
     }
-
-    public void SetStateToGo()
-    {
-        gameState = GameStates.Go;
-    }
-
-    public void SetStateToBusy()
-    {
-        gameState = GameStates.Busy;
-    }
-
 
     public void StartGoalSecquence()
     {
-        StartCoroutine(GoalSecquence());
+        if (!IsBusy())
+        {
+            hud.playerTxtHolder.text = "You found the princess!" + "\n" + "Score : " + plStats.score;
+            print("YOU WIN - FINISH HER!");
+
+
+            StartCoroutine(GoalSecquence());
+        }
     }
 
     IEnumerator GoalSecquence()
     {
+        SetBusy(true, "Player Congrats");
+
         yield return new WaitForSeconds(3);
+
+        plStats.HidePlayer();
         level++;
+        hud.playerTxtHolder.text = "Level : " + (level -2) + "\n" + "Score : " + plStats.score;
+
+        SetBusy(false, "Player Congrats Over");
         mapGen.ResetMap(level);
+    }
+
+    public void StartDeathSequence()
+    {
+        if (!IsBusy())
+        {
+            hud.UpdatePlayerText("Your journey ends here." + "\n" + "score : "+ plStats.score);
+            if (plScore < plStats.score)
+            {
+                plScore = plStats.score;
+                hud.UpdateHiScore("Bestest : " + plScore);
+            }
+            StartCoroutine(ResetGameIn(3));
+        }
+    }
+
+    public IEnumerator ResetGameIn(float time)
+    {
+        plStats.HidePlayer();
+        SetBusy(true, "Player Death");
+        yield return new WaitForSeconds(time);
+        level = 3;
+
+        if (level > 11)
+            level = 11;
+
+        
+
+        SetBusy(false, "Player Death Over");
+
+        
+
+        ResetPlayer();
+        mapGen.ResetMap(level);
+    }
+
+    public void MapReady()
+    {
+        plStats.ShowPlayer();
+        hud.playerTxtHolder.text = ("GO! Find her\n-Press UP-");
+    }
+
+    void ResetPlayer()
+    {
+        plStats.hp = 5;
+        plStats.score = 0;
+        hud.UpdatePlayerText("");
     }
 }
