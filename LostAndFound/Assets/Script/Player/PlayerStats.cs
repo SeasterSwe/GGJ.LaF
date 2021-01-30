@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public int score;
     public Wine_Death DeathFXOne;
     public GameObject DeathFXTwo;
+    public GameObject deathEffekt;
 
     private void Start()
     {
@@ -43,7 +44,8 @@ public class PlayerStats : MonoBehaviour
     public void Death()
     {
         Instantiate(DeathFXOne, transform.position, Quaternion.identity);
-
+        GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
+        Destroy(bloodClone, 7f);
         gm.StartDeathSequence();
         print("Ur dead");
     }
