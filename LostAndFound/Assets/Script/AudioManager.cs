@@ -11,8 +11,10 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+
     void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
@@ -50,6 +52,11 @@ public class AudioManager : MonoBehaviour
             return;
         }
         s.source.Play();
+
+        if (PauseMenu.GameIsPaused)
+        {
+            s.source.pitch *= .5f;
+        }
     }
 
     public void Update()
