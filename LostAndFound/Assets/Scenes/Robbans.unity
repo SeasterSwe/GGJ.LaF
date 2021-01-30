@@ -8706,6 +8706,10 @@ PrefabInstance:
       propertyPath: m_Emitting
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 558127895, guid: 0b87f419e58e08848826419fd7f3cf47, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.5133362
+      objectReference: {fileID: 0}
     - target: {fileID: 1380400489, guid: 0b87f419e58e08848826419fd7f3cf47, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -17,44 +17,51 @@ public class PlayerMovement : MonoBehaviour
 
     public bool locked;
 
+    [HideInInspector] public bool FirstMoveOfTheDay = true;
     private void Update()
     {
         CheckInput();
     }
     private void CheckInput()
     {
+
         if (!gm.IsBusy() && canMove)
         {
             if (locked == true)
             {
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S))
                 {
                     Move(0, 0);
                     locked = false;
                     return;
                 }
             }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    Move(0, 1);
+                }
 
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
-                Move(1, 0);
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                    Move(1, 0);
+                }
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                    Move(-1, 0);
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Move(0, -1);
+                }
             }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                transform.rotation = Quaternion.Euler(0, -90, 0);
-                Move(-1, 0);
-            }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                Move(0, 1);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                Move(0, -1);
-            }
+
+
         }
     }
 

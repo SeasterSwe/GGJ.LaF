@@ -142,6 +142,7 @@ public class GameState : MonoBehaviour
         yield return new WaitForSeconds(time);
         ResetPlayer();
         plStats.HidePlayer();
+        plMove.FirstMoveOfTheDay = true;
         level = 3;
 
         MoveCam();
