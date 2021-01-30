@@ -92,7 +92,7 @@ public class GameState : MonoBehaviour
         Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
         Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
 
-        Camera.main.GetComponent<CameraMovement>().CameraStartPos(posOne, posTwo);
+        MoveCam();
     }
 
     public void StartGoalSecquence()
@@ -132,22 +132,23 @@ public class GameState : MonoBehaviour
                 plScore = plStats.score;
                 hud.UpdateHiScore("Bestest : " + plScore);
             }
-            StartCoroutine(ResetGameIn(3));
+            StartCoroutine(ResetGameIn(2.5f));
         }
     }
 
     public IEnumerator ResetGameIn(float time)
     {
-        plStats.HidePlayer();
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
+        ResetPlayer();
+        plStats.HidePlayer();
+        plMove.FirstMoveOfTheDay = true;
         level = 3;
 
         MoveCam();
 
         SetBusy(false, "Player Death Over");
 
-        ResetPlayer();
         mapGen.ResetMap(level);
     }
 
