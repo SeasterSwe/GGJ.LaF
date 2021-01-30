@@ -88,8 +88,7 @@ public class GameState : MonoBehaviour
         mapGen.StartGenerating(level);
         hud.UpdateHiScore("Bestest");
         plStats.HidePlayer();
-        Camera.main.GetComponent<CameraMovement>().UpdateCamPos(Vector3.zero, Vector3.forward * mapGen.cardHeight * level);
-
+        MoveCam();
     }
 
     public void StartGoalSecquence()
@@ -114,8 +113,7 @@ public class GameState : MonoBehaviour
         level++;
         hud.playerTxtHolder.text = "Level : " + (level -2) + "\n" + "Score : " + plStats.score;
 
-        Camera.main.GetComponent<CameraMovement>().UpdateCamPos(Vector3.zero, Vector3.forward * mapGen.cardHeight * level);
-
+        MoveCam();
         SetBusy(false, "Player Congrats Over");
         mapGen.ResetMap(level);
     }
@@ -141,7 +139,7 @@ public class GameState : MonoBehaviour
         yield return new WaitForSeconds(time);
         level = 3;
 
-        Camera.main.GetComponent<CameraMovement>().UpdateCamPos(Vector3.zero, Vector3.forward * mapGen.cardHeight * level);
+        MoveCam();
 
         SetBusy(false, "Player Death Over");
 
@@ -160,5 +158,14 @@ public class GameState : MonoBehaviour
         plStats.hp = 5;
         plStats.score = 0;
         hud.UpdatePlayerText("");
+    }
+
+    void MoveCam()
+    {
+        Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
+        Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
+
+        Camera.main.GetComponent<CameraMovement>().UpdateCamPos(posOne, posTwo);
+
     }
 }

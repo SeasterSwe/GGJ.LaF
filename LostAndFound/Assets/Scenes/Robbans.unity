@@ -551,6 +551,7 @@ GameObject:
   - component: {fileID: 187906310}
   - component: {fileID: 187906314}
   - component: {fileID: 187906313}
+  - component: {fileID: 187906315}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -700,6 +701,21 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &187906315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187906309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fac093a375640d47a4d2e16b4ca8b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsett: 10
+  offsettMid: -2
+  angle: 55
 --- !u!1 &206819248
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +955,7 @@ MonoBehaviour:
   goodCard: {fileID: 0}
   player: {fileID: 2041699152}
   flipTime: 0.2
+  cardWidth: 2
   cardHeight: 3
   evilCardPreFab: {fileID: 1711991160649486354, guid: 116a3d49fd1e54142a471ca5ed681bfa, type: 3}
   neutralCardPreFab: {fileID: 4622966248852738320, guid: 00ef321b90bd4804284d4dbef0361114, type: 3}

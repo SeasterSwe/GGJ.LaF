@@ -17,7 +17,7 @@ public class MapGenerator : MonoBehaviour
 
     public float flipTime;
 
-    float cardWidth = 2f;
+    public float cardWidth = 2f;
     public float cardHeight = 3f;
     float spaceBetweenCards = 0.3f;
 
