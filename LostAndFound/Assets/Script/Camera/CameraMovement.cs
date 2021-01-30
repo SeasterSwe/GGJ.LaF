@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -30,10 +31,27 @@ public class CameraMovement : MonoBehaviour
         Vector3 pos = posOne + Vector3.up * hightLength;
         pos += (pos - posTwo).normalized * offsett;
 
+        //transform.rotation = new Quaternion(angle, 0, 0);
+
+
+
+        Vector3 midpoint = (posOne + posTwo) * 0.5f;
+        transform.LookAt(midpoint + Vector3.forward * offsettMid);
+        transform.DOMove(pos, 2f).SetEase(Ease.InQuad);
+    }
+
+    public void CameraStartPos(Vector3 posOne, Vector3 posTwo)
+    {
+        Vector3 dir = (posOne - posTwo);
+        float baseLength = dir.magnitude;
+        float hightLength = baseLength * Mathf.Sin(-angle);
+        Vector3 pos = posOne + Vector3.up * hightLength;
+        pos += (pos - posTwo).normalized * offsett;
         transform.position = pos;
 
         Vector3 midpoint = (posOne + posTwo) * 0.5f;
-       // transform.LookAt(midpoint + Vector3.forward * offsettMid);
+        transform.LookAt(midpoint + Vector3.forward * offsettMid);
+        transform.DOMove(pos, 2f).SetEase(Ease.InQuad);
     }
     /*
     // Update is called once per frame
