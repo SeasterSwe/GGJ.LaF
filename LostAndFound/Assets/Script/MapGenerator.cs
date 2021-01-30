@@ -31,6 +31,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject neutralCardPreFab;
     public GameObject goodCardPreFab;
     public GameObject finalCardPreFab;
+    private AudioSource audioSource;
 
     public void ResetMap(int level)
     {
@@ -49,7 +50,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         gm.SetBusy(true, "Eraseing Map");
-        path = new List<Transform>();
+        path = new List<Transform>();    
         for (int y = 0; y < cardsY; y++)
         {
             for (int x = 0; x < cardsX; x++)

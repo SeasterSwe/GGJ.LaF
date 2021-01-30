@@ -29,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (locked == true)
             {
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S))
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.UpArrow)
+                    || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     Move(0, 0);
                     locked = false;
@@ -38,23 +39,23 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     transform.rotation = Quaternion.Euler(0, 0, 0);
                     Move(0, 1);
                 }
 
-                if (Input.GetKeyDown(KeyCode.D))
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     transform.rotation = Quaternion.Euler(0, 90, 0);
                     Move(1, 0);
                 }
-                if (Input.GetKeyDown(KeyCode.A))
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     transform.rotation = Quaternion.Euler(0, -90, 0);
                     Move(-1, 0);
                 }
-                if (Input.GetKeyDown(KeyCode.S))
+                if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     transform.rotation = Quaternion.Euler(0, 180, 0);
                     Move(0, -1);
@@ -72,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
         locked = freeze;
 
         transform.position = MapGenerator.cards[xPos, zPos].transform.position;
-        Instantiate(particle, transform.position, particle.transform.rotation);
         transform.position -= Vector3.forward * gm.mapGen.cardHeight;
         transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
     }
