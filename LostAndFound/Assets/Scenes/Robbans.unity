@@ -949,7 +949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DestroyRTiles: 0
   gm: {fileID: 0}
-  cardsX: 8
+  cardsX: 9
   cardsY: 10
   card: {fileID: 9080971412406212052, guid: f602aa7aa5da12d43b7d55ee473a66d8, type: 3}
   goodCard: {fileID: 0}
