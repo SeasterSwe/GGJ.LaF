@@ -126,7 +126,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Complete()
     {
-        gm.plStats.AddPlayerScore(card.score);
+        if (card.givenPoint == false)
+        {
+            gm.plStats.AddPlayerScore(card.score);
+            card.givenPoint = true;
+        }
+
         Instantiate(particle, transform.position + (Vector3.up * 0.5f), particle.transform.rotation);
         if (card.iAmGoal) ///Win the game
         {

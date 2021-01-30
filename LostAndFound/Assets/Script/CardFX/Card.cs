@@ -13,6 +13,7 @@ public class Card : MonoBehaviour
     public enum CardType { evil, good, neutral, final };
     public CardType type = CardType.evil;
 
+    public bool givenPoint = false;
     public bool open;
     public bool busy;
     public int hpDmg = 2;

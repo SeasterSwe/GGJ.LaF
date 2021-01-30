@@ -16,13 +16,13 @@ public class PlayerStats : MonoBehaviour
     }
     public void HidePlayer()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().emitting = false;
-        gameObject.GetComponentInChildren<Renderer>().enabled = false;
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;
+        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
     
     public void ShowPlayer()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().emitting = false;   
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;   
        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 
