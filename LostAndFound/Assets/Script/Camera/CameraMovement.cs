@@ -21,4 +21,25 @@ public class CameraMovement : MonoBehaviour
         transform.DOMove(campos, 2f).SetEase(Ease.InQuad);
         transform.DORotateQuaternion(Quaternion.LookRotation( midpoint - campos), 2f).SetEase(Ease.InQuad);
     }
+
+
+    public void ShakeCam()
+    {
+//        transform.DOShakePosition(0.5f, Vector3.one * 0.25f ,100, 90, true);
+        StartCoroutine( ShakeCamOverTime());
+    }
+
+    IEnumerator ShakeCamOverTime()
+    {
+        Vector3 orgPos = transform.position;
+        float time = 0;
+        while (time < 0.25f)
+        {
+            transform.position += Random.insideUnitSphere * 0.05f;
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = orgPos;
+    }
 }

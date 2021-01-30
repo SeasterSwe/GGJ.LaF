@@ -34,6 +34,10 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        if (dmg < 0)
+        {
+            Camera.main.GetComponent<CameraMovement>().ShakeCam();
+        }
         hp += dmg;
         gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
         if (hp <= 0)

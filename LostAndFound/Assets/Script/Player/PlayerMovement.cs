@@ -60,8 +60,6 @@ public class PlayerMovement : MonoBehaviour
                     Move(0, -1);
                 }
             }
-
-
         }
     }
 
@@ -155,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void MoveOutOfScreen()
     {
-        transform.position = Vector3.forward * 100;
+        transform.position = Vector3.down * -100;
         transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
     }
 }
