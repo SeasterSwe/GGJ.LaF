@@ -7,26 +7,39 @@ public class CameraMovement : MonoBehaviour
 
     //Y= mxb
     public float offsett = 10;
-    public float angle = 60;
+    public float offsettMid = -2;
+    public float angle = 55;
 
 
-    public Transform pOne;
-    public Transform pTwo;
-    public Transform pTree;
-    public Vector3 pointOne;
-    public Vector3 pointTwo;
+    //public Transform pOne;
+    //public Transform pTwo;
+    //public Transform pTree;
+    //public Vector3 pointOne;
+    //public Vector3 pointTwo;
 
-    public Vector3 result;
-    public Vector3 midPoint;
-    public Vector3 dir;
+    //public Vector3 result;s
+    //public Vector3 midPoint;
+    //public Vector3 dir;
+    //public Vector3 dir;
     // Start is called before the first frame update
-    void Start()
+    public void UpdateCamPos(Vector3 posOne, Vector3 posTwo)
     {
-        
-    }
+        Vector3 dir = (posOne - posTwo);
+        float baseLength = dir.magnitude;
+        float hightLength = baseLength * Mathf.Sin(-angle);
+        Vector3 pos = posOne + Vector3.up * hightLength;
+        pos += (pos - posTwo).normalized * offsett;
 
+        transform.position = pos;
+
+        Vector3 midpoint = (posOne + posTwo) * 0.5f;
+        transform.LookAt(midpoint + Vector3.forward * offsettMid);
+
+
+    }
+    /*
     // Update is called once per frame
-    void Update()
+    void FallBack()
     {
         pointOne = pOne.position;
         pointTwo = pTwo.position;
@@ -51,4 +64,5 @@ public class CameraMovement : MonoBehaviour
 
         pTree.LookAt(midPoint);
     }
+    */
 }
