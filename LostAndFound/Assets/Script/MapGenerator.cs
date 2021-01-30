@@ -178,15 +178,16 @@ public class MapGenerator : MonoBehaviour
 
     IEnumerator OpenPath(GameObject[] listOfPath)
     {
-        if (DestroyRTiles)
-            StartCoroutine(DestroyStuff(cardsX, cardsY));
-
+         if (DestroyRTiles)
+             StartCoroutine(DestroyStuff(cardsX, cardsY));
+        yield return null;
         for (int y = 0; y < listOfPath.Length; y++)
         {
             gm.cardShuffle.FlipThisCardOpen(listOfPath[y].transform);
             yield return new WaitForSeconds(flipTime);
         }
-
+       
+         
         Card PrincessCard = listOfPath[0].GetComponent<Card>();
 
         for (int y = 1; y < listOfPath.Length; y++)
@@ -217,6 +218,7 @@ public class MapGenerator : MonoBehaviour
 
         gm.MapReady();
         gm.SetBusy(false, "Level Compleated");
+        
     }
 
     IEnumerator DestroyStuff(int x, int y)
