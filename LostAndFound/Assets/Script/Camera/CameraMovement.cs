@@ -33,7 +33,7 @@ public class CameraMovement : MonoBehaviour
         transform.position = pos;
 
         Vector3 midpoint = (posOne + posTwo) * 0.5f;
-        transform.LookAt(midpoint + Vector3.forward * offsettMid);
+       // transform.LookAt(midpoint + Vector3.forward * offsettMid);
     }
     /*
     // Update is called once per frame

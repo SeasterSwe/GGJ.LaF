@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
     public GameState gm;
     public int hp = 5;
     public int score;
+    public Wine_Death DeathFXOne;
+    public GameObject DeathFXTwo;
 
     private void Start()
     {
@@ -40,6 +42,8 @@ public class PlayerStats : MonoBehaviour
 
     public void Death()
     {
+        Instantiate(DeathFXOne, transform.position, Quaternion.identity);
+
         gm.StartDeathSequence();
         print("Ur dead");
     }

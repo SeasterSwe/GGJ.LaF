@@ -128,15 +128,15 @@ public class GameState : MonoBehaviour
                 plScore = plStats.score;
                 hud.UpdateHiScore("Bestest : " + plScore);
             }
-            StartCoroutine(ResetGameIn(3));
+            StartCoroutine(ResetGameIn(2.5f));
         }
     }
 
     public IEnumerator ResetGameIn(float time)
     {
-        plStats.HidePlayer();
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
+        plStats.HidePlayer();
         level = 3;
 
         MoveCam();
