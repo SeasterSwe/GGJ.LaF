@@ -88,7 +88,11 @@ public class GameState : MonoBehaviour
         mapGen.StartGenerating(level);
         hud.UpdateHiScore("Bestest");
         plStats.HidePlayer();
-        MoveCam();
+
+        Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
+        Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
+
+        Camera.main.GetComponent<CameraMovement>().CameraStartPos(posOne, posTwo);
     }
 
     public void StartGoalSecquence()
@@ -166,6 +170,6 @@ public class GameState : MonoBehaviour
         Vector3 posTwo = posOne + Vector3.forward * mapGen.cardHeight * level;
 
         Camera.main.GetComponent<CameraMovement>().UpdateCamPos(posOne, posTwo);
-
     }
+   // Mo
 }
