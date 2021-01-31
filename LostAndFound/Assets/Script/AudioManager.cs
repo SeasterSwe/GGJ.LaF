@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour
         {
             if (s.source != null)
             {
-          //  s.source.volume = volume;
+              s.source.volume = volume;
             }
         }
     }
