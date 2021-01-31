@@ -33,11 +33,11 @@ public class PlayerStats : MonoBehaviour
         if (hp == maxHP)
         {
             hp = maxHP;
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "\n" + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "score : " + score);
         }
         else
         {
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "score : " + score);
         }
     }
 
@@ -57,11 +57,11 @@ public class PlayerStats : MonoBehaviour
         if (hp > maxHP)
         {
             hp = maxHP;
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "\n" + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" +  "score : " + score);
         }
         else
         {
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "score : " + score);
         }
     }
 

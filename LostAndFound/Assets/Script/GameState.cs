@@ -115,7 +115,7 @@ public class GameState : MonoBehaviour
 
         plStats.HidePlayer();
         level++;
-        hud.playerTxtHolder.text = "Level : " + (level -2) + "\n" + "Score : " + plStats.score;
+        hud.playerTxtHolder.text = "Level : " + (level -2) + "\n" + "HP : " + plStats.hp + " Score : " + plStats.score;
 
         MoveCam();
         SetBusy(false, "Player Congrats Over");
@@ -126,7 +126,7 @@ public class GameState : MonoBehaviour
     {
         if (!IsBusy())
         {
-            hud.UpdatePlayerText("Your journey ends here." + "\n" + "score : "+ plStats.score);
+            hud.UpdatePlayerText("Your journey ends here." + "\n" + "Level : " + level + " Score : "+ plStats.score);
             if (plScore < plStats.score)
             {
                 plScore = plStats.score;
@@ -155,7 +155,7 @@ public class GameState : MonoBehaviour
     public void MapReady()
     {
         plStats.ShowPlayer();
-        hud.playerTxtHolder.text = ("GO! Find her\n-Press UP-");
+        hud.playerTxtHolder.text = ("GO! Find her\n" + "Level : " + level + " Score : " + plStats.score + "-Press UP-");
     }
 
     void ResetPlayer()
