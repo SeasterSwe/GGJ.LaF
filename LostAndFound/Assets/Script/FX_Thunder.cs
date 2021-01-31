@@ -11,6 +11,8 @@ public class FX_Thunder : MonoBehaviour
 
     public float timer;
 
+    private string thunderSound = "ThunderSound";
+
     void Start()
     {
         timer = Random.Range(minDelay, maxDelay);
@@ -31,6 +33,7 @@ public class FX_Thunder : MonoBehaviour
 
     IEnumerator CreateThunder()
     {
+        AudioManager.instance.Play(thunderSound);
         LightFx.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         LightFx.SetActive(false);

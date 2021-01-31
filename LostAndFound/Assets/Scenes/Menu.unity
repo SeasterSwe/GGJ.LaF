@@ -7463,43 +7463,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.size
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[0].loop
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 4af60c6821a125545a4e83c3bf8dadd4, type: 3}
+      objectReference: {fileID: 8300000, guid: a406523de55857a4e8c383fc862eb441, type: 3}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].loop
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].name
-      value: Menu2
+      value: FlipSound
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[2].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+      objectReference: {fileID: 8300000, guid: 3ea61e3e38d93d54e8b6c48b46a99d86, type: 3}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[2].loop
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[2].name
-      value: Menu
+      value: SwapCard
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[3].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+      objectReference: {fileID: 8300000, guid: 634ece706ee3e5a40abb73756f3e7d33, type: 3}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[3].loop
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[3].name
-      value: Menu
+      value: ThunderSound
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[4].clip
@@ -7531,15 +7535,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].volume
-      value: 1
+      value: 0.217
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[2].volume
-      value: 1
+      value: 0.266
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[3].volume
-      value: 1
+      value: 0.266
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[4].volume
