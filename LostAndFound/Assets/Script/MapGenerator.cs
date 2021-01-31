@@ -166,7 +166,7 @@ public class MapGenerator : MonoBehaviour
 
         //Convert to array and set card propetys
         GameObject[] listofPath = pathRoute.ToArray();
-        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 0, 10, true, true);
+        listofPath[0].GetComponent<Card>().SetToCard(finalCardPreFab.transform.GetChild(0).gameObject, 1, 10, true, true);
         for (int i = 1; i < listofPath.Length; i++)
         {
             listofPath[i].GetComponent<Card>().SetToCard(neutralCardPreFab.transform.GetChild(0).gameObject, 0, 1, true, false);

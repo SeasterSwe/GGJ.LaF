@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     public GameState gm;
     public int hp = 5;
+    public int maxHP = 8;
     public int score;
     public Wine_Death DeathFXOne;
     public GameObject deathEffekt;
@@ -45,6 +46,10 @@ public class PlayerStats : MonoBehaviour
         if (hp <= 0)
         {
             Death();
+        }
+        if (hp > maxHP)
+        {
+            hp = maxHP;
         }
     }
 
