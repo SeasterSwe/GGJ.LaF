@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-       // Play("Menu");
+       Play("Menu");
     }
 
     public void Play(string name)
@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour
             var audioSource = newSource.AddComponent<AudioSource>();
 
             audioSource.clip = s.clip;
-            //audioSource.volume = volume;
+            audioSource.volume = volume;
             audioSource.pitch = s.pitch;
             audioSource.loop = s.loop;
             s.source = audioSource;
