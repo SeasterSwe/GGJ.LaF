@@ -22,6 +22,7 @@ public class FX_Thunder : MonoBehaviour
     {
         if (timer <= 0)
         {
+            AudioManager.instance.Play(thunderSound);
             StartCoroutine(CreateThunder());
             timer = Random.Range(minDelay, maxDelay);
         }
@@ -29,14 +30,14 @@ public class FX_Thunder : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
-    
+
     }
 
     IEnumerator CreateThunder()
     {
-        AudioManager.instance.Play(thunderSound);
-        LightFx.SetActive(true);
         yield return new WaitForSeconds(0.3f);
+        LightFx.SetActive(true);
+        yield return new WaitForSeconds(0.32f);
         LightFx.SetActive(false);
     }
 }

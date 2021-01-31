@@ -52,6 +52,30 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: FlipSound
+    clip: {fileID: 8300000, guid: a406523de55857a4e8c383fc862eb441, type: 3}
+    volume: 0.217
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SwapCard
+    clip: {fileID: 8300000, guid: 3ea61e3e38d93d54e8b6c48b46a99d86, type: 3}
+    volume: 0.266
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ThunderSound
+    clip: {fileID: 8300000, guid: 634ece706ee3e5a40abb73756f3e7d33, type: 3}
+    volume: 0.266
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerDmg
+    clip: {fileID: 8300000, guid: 47599909ab5f3924fba13fcb68735193, type: 3}
+    volume: 0.266
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!82 &5198203838049919079
 AudioSource:
   m_ObjectHideFlags: 0

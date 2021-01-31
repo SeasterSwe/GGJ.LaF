@@ -66,7 +66,7 @@ public class ShuffleCards : MonoBehaviour
             cardOne.position = Quaternion.Euler(dir * angle) * dirOne + midPoint;
             cardTwo.position = Quaternion.Euler(dir * angle) * dirTwo + midPoint;
             yield return new WaitForEndOfFrame();
-            angle += rotSpeed * Time.deltaTime;
+            angle += rotSpeed * 1.5f * Time.deltaTime;
         }
         angle = 180;
         cardOne.position = Quaternion.Euler(dir * angle) * dirOne + midPoint;
