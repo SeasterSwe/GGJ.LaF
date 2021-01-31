@@ -46,6 +46,7 @@ public class PlayerStats : MonoBehaviour
         if (dmg < 0)
         {
             Camera.main.GetComponent<CameraMovement>().ShakeCam();
+            AudioManager.instance.Play("PlayerDmg");
             GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
             Destroy(bloodClone, 7f);
         }

@@ -29,6 +29,7 @@ public class FX_Thunder : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
+    
     }
 
     IEnumerator CreateThunder()
