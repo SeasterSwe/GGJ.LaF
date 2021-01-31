@@ -58,7 +58,7 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f; // Startar spelet - ej pausat men drar igång.
-        SceneManager.LoadScene("Menu");
+        //SceneMangement.LoadScene("Menu");
     }
 
     public void Controls()

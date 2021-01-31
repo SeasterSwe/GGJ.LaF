@@ -11,6 +11,8 @@ public class MapGenerator : MonoBehaviour
     public int cardsX;
     public int cardsY;
 
+    public int levelCap = 14;
+
     public GameObject card;
     public GameObject goodCard;
     public GameObject player;
@@ -31,10 +33,10 @@ public class MapGenerator : MonoBehaviour
     public GameObject neutralCardPreFab;
     public GameObject goodCardPreFab;
     public GameObject finalCardPreFab;
+    private AudioSource audioSource;
 
     public void ResetMap(int level)
     {
-
         StartCoroutine(EraseMap(level));
     }
 
@@ -49,7 +51,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         gm.SetBusy(true, "Eraseing Map");
-        path = new List<Transform>();
+        path = new List<Transform>();    
         for (int y = 0; y < cardsY; y++)
         {
             for (int x = 0; x < cardsX; x++)
@@ -77,7 +79,11 @@ public class MapGenerator : MonoBehaviour
 
     public void StartGenerating(int difficultyLevel)
     {
-        cardsY = difficultyLevel;
+        cardsY = difficultyLevel; //< Level cap.......................................................................................
+        if(cardsY > levelCap)
+        {
+            cardsY = levelCap;
+        }
         StartCoroutine(MakeGrid(cardsX, cardsY));
     }
 
@@ -172,15 +178,16 @@ public class MapGenerator : MonoBehaviour
 
     IEnumerator OpenPath(GameObject[] listOfPath)
     {
-        if (DestroyRTiles)
-            StartCoroutine(DestroyStuff(cardsX, cardsY));
-
+         if (DestroyRTiles)
+             StartCoroutine(DestroyStuff(cardsX, cardsY));
+        yield return null;
         for (int y = 0; y < listOfPath.Length; y++)
         {
             gm.cardShuffle.FlipThisCardOpen(listOfPath[y].transform);
             yield return new WaitForSeconds(flipTime);
         }
-
+       
+         
         Card PrincessCard = listOfPath[0].GetComponent<Card>();
 
         for (int y = 1; y < listOfPath.Length; y++)
@@ -211,6 +218,7 @@ public class MapGenerator : MonoBehaviour
 
         gm.MapReady();
         gm.SetBusy(false, "Level Compleated");
+        
     }
 
     IEnumerator DestroyStuff(int x, int y)

@@ -6,8 +6,12 @@ public class ShuffleCards : MonoBehaviour
 {
     public bool busy;
     int rotSpeed = 4;
+    public AudioClip swapSound;
+    public AudioClip cardSound;
+    private AudioSource audioSource;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SwapCardOneWithTwo(Transform cardOne, Transform cardTwo)
@@ -52,6 +56,8 @@ public class ShuffleCards : MonoBehaviour
         Vector3 dirOne = cardOne.position - midPoint;
         Vector3 dirTwo = cardTwo.position - midPoint;
 
+        audioSource.clip = swapSound;
+        audioSource.Play();
 
         int angle = 0;
         while (angle <= 180)
@@ -60,7 +66,7 @@ public class ShuffleCards : MonoBehaviour
             cardOne.position = Quaternion.Euler(dir * angle) * dirOne + midPoint;
             cardTwo.position = Quaternion.Euler(dir * angle) * dirTwo + midPoint;
             yield return new WaitForEndOfFrame();
-            angle+= rotSpeed;
+            angle += rotSpeed;
         }
 
         cardOne.gameObject.GetComponent<Card>().busy = false;
@@ -70,29 +76,31 @@ public class ShuffleCards : MonoBehaviour
 
     private IEnumerator FlipCardOpen(Transform card)
     {
-        if (card)
+        busy = true;
+        card.gameObject.GetComponent<Card>().busy = true;
+        int r = (int)card.eulerAngles.z;
+        audioSource.clip = cardSound;
+        audioSource.Play();
+        while (r <= 180)
         {
             busy = true;
-            card.gameObject.GetComponent<Card>().busy = true;
-            int r = (int)card.eulerAngles.z;
-            while (r <= 180)
-            {
-                busy = true;
-                card.rotation = Quaternion.Euler(0, 0, r);
-                r += rotSpeed;
-                yield return new WaitForEndOfFrame();
-            }
-
-            card.gameObject.GetComponent<Card>().open = true;
-            card.gameObject.GetComponent<Card>().busy = false;
-            busy = false;
+            card.rotation = Quaternion.Euler(0, 0, r);
+            r += rotSpeed;
+            yield return new WaitForEndOfFrame();
         }
+
+        card.gameObject.GetComponent<Card>().open = true;
+        card.gameObject.GetComponent<Card>().busy = false;
+        busy = false;
+
     }
 
     private IEnumerator FlipCardClose(Transform card)
     {
         if (card)
         {
+            audioSource.clip = cardSound;
+            audioSource.Play();
 
             busy = true;
             card.gameObject.GetComponent<Card>().busy = true;
@@ -121,7 +129,7 @@ public class ShuffleCards : MonoBehaviour
         {
             busy = true;
             card.rotation = Quaternion.Euler(0, 0, r);
-            r+=rotSpeed;
+            r += rotSpeed;
             yield return new WaitForEndOfFrame();
         }
 

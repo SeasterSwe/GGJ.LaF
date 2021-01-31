@@ -9,7 +9,7 @@ public class ReloadScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneMangement.LoadScene(SceneMangement.GetActiveScene().name);
         }
     }
 }
