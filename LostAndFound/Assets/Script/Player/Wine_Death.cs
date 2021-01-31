@@ -6,7 +6,7 @@ public class Wine_Death : MonoBehaviour
 {
     public float angleSpeed = 2;
     public GameObject wineOne;
-    public float waitForDestroy = 2;
+    public float waitForDestroy = 1;
     private void Start()
     {
         wineOne.transform.rotation = Quaternion.Euler(0,0,0);
@@ -23,8 +23,8 @@ public class Wine_Death : MonoBehaviour
 
         while (currentAngle < angleT)
         {
-            currentAngle += angleT * angleSpeed * Time.deltaTime * 0.5f;
-            wineOne.transform.position += Vector3.up * 2.5f * angleSpeed * Time.deltaTime * 0.5f;
+            currentAngle += angleT * angleSpeed * Time.deltaTime;
+            wineOne.transform.position += Vector3.up * 2.5f * angleSpeed * Time.deltaTime;
             wineOne.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
             yield return null;
         }

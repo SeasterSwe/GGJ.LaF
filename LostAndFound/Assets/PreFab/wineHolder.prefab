@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec54c3cef0139142a738f931dc7d052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleSpeed: 2
+  angleSpeed: 1
   wineOne: {fileID: 8067699039312899900}
-  waitForDestroy: 2
+  waitForDestroy: 1
 --- !u!1001 &8067699039475030457
 PrefabInstance:
   m_ObjectHideFlags: 0
