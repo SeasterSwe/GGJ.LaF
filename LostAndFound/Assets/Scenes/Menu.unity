@@ -6902,7 +6902,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737730015}
   m_CullTransparentMesh: 1
-
 --- !u!1 &1785016195
 GameObject:
   m_ObjectHideFlags: 0
@@ -6941,13 +6940,11 @@ RectTransform:
   m_SizeDelta: {x: 486.4, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1785016197
-
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-
   m_GameObject: {fileID: 1785016195}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -6962,10 +6959,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Robin
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4d78782481ad5d14c9026fa3bdc7460b, type: 2}
-  m_sharedMaterial: {fileID: -6007780875681972173, guid: 4d78782481ad5d14c9026fa3bdc7460b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6984,7 +6981,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 0
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -6996,7 +6993,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -7173,7 +7170,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828749747}
   m_CullTransparentMesh: 1
-
 --- !u!1 &1885763209
 GameObject:
   m_ObjectHideFlags: 0
@@ -7465,19 +7461,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+      objectReference: {fileID: 8300000, guid: 4af60c6821a125545a4e83c3bf8dadd4, type: 3}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].name
-      value: Menu
+      value: Menu2
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[2].clip
