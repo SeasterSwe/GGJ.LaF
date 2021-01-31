@@ -23,8 +23,8 @@ public class Wine_Death : MonoBehaviour
 
         while (currentAngle < angleT)
         {
-            currentAngle += angleT * angleSpeed * Time.deltaTime;
-            wineOne.transform.position += Vector3.up * 2.5f * angleSpeed * Time.deltaTime;
+            currentAngle += angleT * angleSpeed * Time.deltaTime * 0.5f;
+            wineOne.transform.position += Vector3.up * 2.5f * angleSpeed * Time.deltaTime * 0.5f;
             wineOne.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
             yield return null;
         }
