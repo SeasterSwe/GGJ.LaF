@@ -30,7 +30,7 @@ public class PlayerStats : MonoBehaviour
     public void AddPlayerScore(int num)
     {
         score += num;
-        if (hp = maxHP)
+        if (hp == maxHP)
         {
             hp = maxHP;
             gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "\n" + "score : " + score);

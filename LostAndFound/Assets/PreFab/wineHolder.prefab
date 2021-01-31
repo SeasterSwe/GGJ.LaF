@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleSpeed: 1
   wineOne: {fileID: 8067699039312899900}
-  waitForDestroy: 1
+  waitForDestroy: 1.5
 --- !u!1001 &8067699039475030457
 PrefabInstance:
   m_ObjectHideFlags: 0
