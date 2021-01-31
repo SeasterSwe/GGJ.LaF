@@ -141,11 +141,11 @@ public class GameState : MonoBehaviour
     {
         SetBusy(true, "Player Death");
         yield return new WaitForSeconds(time);
-        ResetPlayer();
         plStats.HidePlayer();
         plMove.FirstMoveOfTheDay = true;
         level = 3;
 
+        ResetPlayer();
         MoveCam();
 
         SetBusy(false, "Player Death Over");
