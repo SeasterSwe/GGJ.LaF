@@ -6,7 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     public GameState gm;
     public int hp = 5;
-    public int maxHP = 8;
+    public int maxHP = 5;
     public int score;
     public Wine_Death DeathFXOne;
     public GameObject deathEffekt;
@@ -30,7 +30,15 @@ public class PlayerStats : MonoBehaviour
     public void AddPlayerScore(int num)
     {
         score += num;
-        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
+        if (hp = maxHP)
+        {
+            hp = maxHP;
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "\n" + "score : " + score);
+        }
+        else
+        {
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
+        }
     }
 
     public void TakeDamage(int dmg)
@@ -42,7 +50,6 @@ public class PlayerStats : MonoBehaviour
             Destroy(bloodClone, 7f);
         }
         hp += dmg;
-        gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
         if (hp <= 0)
         {
             Death();
@@ -50,6 +57,11 @@ public class PlayerStats : MonoBehaviour
         if (hp > maxHP)
         {
             hp = maxHP;
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "\n" + "score : " + score);
+        }
+        else
+        {
+            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "\n" + "score : " + score);
         }
     }
 
