@@ -602,7 +602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -175, y: 123}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &187688477
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df0dfbfea93a4c042a8d6a446d74d96c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77122814fffc61e4fa08bbfd1fa099e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6902,6 +6902,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737730015}
   m_CullTransparentMesh: 1
+
 --- !u!1 &1785016195
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,11 +6941,13 @@ RectTransform:
   m_SizeDelta: {x: 486.4, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1785016197
+
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+
   m_GameObject: {fileID: 1785016195}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -7170,6 +7173,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828749747}
   m_CullTransparentMesh: 1
+
 --- !u!1 &1885763209
 GameObject:
   m_ObjectHideFlags: 0
@@ -7454,6 +7458,94 @@ PrefabInstance:
     - target: {fileID: 6997132782223749440, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[1].name
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[2].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[2].name
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[3].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[3].name
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f1268e898f199c4ab9490383c68a1c0, type: 3}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[4].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[4].name
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[2].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[4].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[4].volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749446, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: m_RootOrder
