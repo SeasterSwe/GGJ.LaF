@@ -84,9 +84,9 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
-        hud.playerTxtHolder.text = "Find the princess!" + "\n" + "Level : " + (level - 2) + " Score : " + plStats.score;
+        hud.UpdatePlayerText("Focus on the path!\n" + "Level : " + (level - 2) + " Score : " + plStats.score);
         mapGen.StartGenerating(level);
-        hud.UpdateHiScore("Bestest");
+        hud.UpdateHiScore("High Score");
         plStats.HidePlayer();
 
         Vector3 posOne = Vector3.right * mapGen.cardsX * mapGen.cardWidth * 0.5f;
@@ -127,11 +127,11 @@ public class GameState : MonoBehaviour
     {
         if (!IsBusy())
         {
-            hud.UpdatePlayerText("Your journey ends here." + "\n" + "Level : " + (level - 2) + " Score : "+ plStats.score);
+            hud.UpdatePlayerText("Your journey ends here!" + "\n" + "Level : " + (level - 2) + " Score : "+ plStats.score);
             if (plScore < plStats.score)
             {
                 plScore = plStats.score;
-                hud.UpdateHiScore("Bestest : " + plScore);
+                hud.UpdateHiScore("High Score : " + plScore);
             }
             StartCoroutine(ResetGameIn(2.5f));
         }
@@ -156,7 +156,7 @@ public class GameState : MonoBehaviour
     public void MapReady()
     {
         plStats.ShowPlayer();
-        hud.UpdatePlayerText("GO! Find her\n" + "Level : " + (level - 2) + " Score : " + plStats.score +"\n"+ "-Press UP-");
+        hud.UpdatePlayerText("GO! Find her\n" + "Level : " + (level - 2) + " Score : " + plStats.score +"\n"+ "-Press Arrow/WSAD to move-");
         
     }
 
@@ -164,7 +164,8 @@ public class GameState : MonoBehaviour
     {
         plStats.hp = 5;
         plStats.score = 0;
-        hud.UpdatePlayerText("");
+        hud.UpdatePlayerText("Focus on the path!\n" + "Level : " + (level - 2) + " Score : " + plStats.score);
+//        hud.UpdatePlayerText("");
     }
 
     void MoveCam()
