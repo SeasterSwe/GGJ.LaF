@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShuffleCards : MonoBehaviour
 {
     public bool busy;
-    int rotSpeed = 4;
+    int rotSpeed = 360;
     public AudioClip swapSound;
     public AudioClip cardSound;
     private string flipSound = "FlipSound";
@@ -59,15 +59,18 @@ public class ShuffleCards : MonoBehaviour
 
         AudioManager.instance.Play(swapCard);
 
-        int angle = 0;
+        float angle = 0;
         while (angle <= 180)
         {
             busy = true;
             cardOne.position = Quaternion.Euler(dir * angle) * dirOne + midPoint;
             cardTwo.position = Quaternion.Euler(dir * angle) * dirTwo + midPoint;
             yield return new WaitForEndOfFrame();
-            angle += rotSpeed;
+            angle += rotSpeed * Time.deltaTime;
         }
+        angle = 180;
+        cardOne.position = Quaternion.Euler(dir * angle) * dirOne + midPoint;
+        cardTwo.position = Quaternion.Euler(dir * angle) * dirTwo + midPoint;
 
         cardOne.gameObject.GetComponent<Card>().busy = false;
         cardTwo.gameObject.GetComponent<Card>().busy = false;
@@ -78,15 +81,17 @@ public class ShuffleCards : MonoBehaviour
     {
         busy = true;
         card.gameObject.GetComponent<Card>().busy = true;
-        int r = (int)card.eulerAngles.z;
+        float r = (int)card.eulerAngles.z;
         AudioManager.instance.Play(flipSound);
         while (r <= 180)
         {
             busy = true;
             card.rotation = Quaternion.Euler(0, 0, r);
-            r += rotSpeed;
-            yield return new WaitForEndOfFrame();
+            r += rotSpeed * Time.deltaTime;
+            yield return null;
         }
+        card.gameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+        yield return null;
 
         card.gameObject.GetComponent<Card>().open = true;
         card.gameObject.GetComponent<Card>().busy = false;
@@ -101,16 +106,17 @@ public class ShuffleCards : MonoBehaviour
 
             busy = true;
             card.gameObject.GetComponent<Card>().busy = true;
-            int r = (int)card.eulerAngles.z;
+            float r = (int)card.eulerAngles.z;
             AudioManager.instance.Play(flipSound);
             while (r >= 0)
             {
                 busy = true;
                 card.rotation = Quaternion.Euler(0, 0, r);
-                r -= rotSpeed;
-                yield return new WaitForEndOfFrame();
+                r -= rotSpeed * Time.deltaTime;
+                yield return null;
             }
-
+            card.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            yield return null;
             card.gameObject.GetComponent<Card>().open = false;
             card.gameObject.GetComponent<Card>().busy = false;
             busy = false;
