@@ -777,8 +777,8 @@ RectTransform:
   m_Children:
   - {fileID: 28237392}
   - {fileID: 422632715}
-  - {fileID: 809971936}
   - {fileID: 1785016196}
+  - {fileID: 809971936}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5821,8 +5821,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 752835119}
     m_Modifications:
     - target: {fileID: 1501349898928849880, guid: 429714eb0becdb54a854a03be0ebccb2, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501349898928849880, guid: 429714eb0becdb54a854a03be0ebccb2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1501349898928849880, guid: 429714eb0becdb54a854a03be0ebccb2, type: 3}
       propertyPath: m_RaycastTarget
@@ -5850,7 +5854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501349898928849886, guid: 429714eb0becdb54a854a03be0ebccb2, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1501349898928849886, guid: 429714eb0becdb54a854a03be0ebccb2, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6529,7 +6533,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 752835119}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -6793,7 +6797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[0].loop
@@ -6848,6 +6852,14 @@ PrefabInstance:
       value: PlayerDmg
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3ff2f6b23aad584439dfbe14bedcd050, type: 3}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[5].name
+      value: ThunderAndRain
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].pitch
       value: 1
       objectReference: {fileID: 0}
@@ -6864,20 +6876,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[5].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[1].volume
-      value: 0.217
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[2].volume
-      value: 0.266
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[3].volume
-      value: 0.266
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: sounds.Array.data[4].volume
-      value: 0.266
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997132782223749441, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
+      propertyPath: sounds.Array.data[5].volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997132782223749446, guid: a7a3f4d8badcd3a43b6d17c1999b9ac0, type: 3}
       propertyPath: m_RootOrder

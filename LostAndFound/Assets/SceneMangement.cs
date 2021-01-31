@@ -24,4 +24,15 @@ public class SceneMangement : MonoBehaviour
         }
         yield return null;
     }
+
+    public void QuitGame()
+    {
+        StartCoroutine(Quit());
+    }
+    IEnumerator Quit()
+    {
+        animation.GetComponent<Animator>().SetTrigger("Close");
+        yield return new WaitForSeconds(1f);
+        Application.Quit();
+    }
 }
