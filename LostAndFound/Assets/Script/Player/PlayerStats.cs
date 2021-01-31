@@ -13,18 +13,18 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-       // gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
+        // gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp);
     }
     public void HidePlayer()
     {
         gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;
         gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
-    
+
     public void ShowPlayer()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;   
-       gameObject.GetComponentInChildren<Renderer>().enabled = true;
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = true;
+        gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 
     public void AddPlayerScore(int num)
@@ -33,41 +33,42 @@ public class PlayerStats : MonoBehaviour
         if (hp == maxHP)
         {
             hp = maxHP;
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero" + " HP : MAX" + "\n" + "Level : " + (gm.level - 2) + " Score : " + score);
+
         }
         else
         {
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero" + " HP : " + hp + "\n" + "Level : " + (gm.level - 2) + " Score : " + score);
         }
     }
 
     public void TakeDamage(int dmg)
     {
+        hp += dmg;
         if (dmg < 0)
         {
             Camera.main.GetComponent<CameraMovement>().ShakeCam();
             GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
             Destroy(bloodClone, 7f);
         }
-        hp += dmg;
-        if (hp <= 0)
-        {
-            Death();
-        }
         if (hp > maxHP)
         {
             hp = maxHP;
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : MAX" +  "score : " + score);
+            gm.hud.UpdatePlayerText("Hero" + " HP : MAX\n" + "Level : " + (gm.level -2) + " Score : " + score);
         }
         else
         {
-            gm.hud.UpdatePlayerText("Hero\n" + "HP : " + hp + "score : " + score);
+            gm.hud.UpdatePlayerText("Hero" + " HP : " + hp + "\n" + "Level : " + (gm.level - 2) + " Score : " + score);
+        }
+        if (hp <= 0)
+        {
+            Death();
         }
     }
 
     public void Death()
     {
-        gameObject.GetComponentInChildren<TrailRenderer>().emitting = ( false);
+        gameObject.GetComponentInChildren<TrailRenderer>().emitting = (false);
         Instantiate(DeathFXOne, transform.position, Quaternion.identity);
         GameObject bloodClone = Instantiate(deathEffekt, transform.position, deathEffekt.transform.rotation);
         Destroy(bloodClone, 7f);

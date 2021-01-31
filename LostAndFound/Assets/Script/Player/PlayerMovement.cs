@@ -121,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
             transform.DOMoveZ(MapGenerator.cards[xPos, zPos].transform.position.z, moveSpeed).SetEase(Ease.InOutQuad);
             normalY = transform.position.y;
             transform.DOMoveY(transform.position.y + 2, moveSpeed * 0.5f).SetEase(Ease.OutQuad).OnComplete(JumpDown);
-            //gm.hud.AddPlayerScore(card.score);
         }
         else
         {
@@ -140,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(particle, transform.position + (Vector3.up * 0.5f), particle.transform.rotation);
         if (card.iAmGoal) ///Win the game
         {
-            gm.hud.playerTxtHolder.text = "YOU WIN - FINISH HER!";
             Instantiate(gm.WinFX, transform.position, Quaternion.identity);
             print("YOU WIN - FINISH HER!");
             gm.StartGoalSecquence();
