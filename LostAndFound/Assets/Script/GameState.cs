@@ -131,7 +131,7 @@ public class GameState : MonoBehaviour
             if (plScore < plStats.score)
             {
                 plScore = plStats.score;
-                hud.UpdateHiScore("High Score : " + plScore);
+                hud.UpdateHiScore("High Score\n" + plScore);
             }
             StartCoroutine(ResetGameIn(2.5f));
         }
