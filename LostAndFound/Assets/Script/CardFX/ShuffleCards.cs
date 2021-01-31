@@ -8,10 +8,11 @@ public class ShuffleCards : MonoBehaviour
     int rotSpeed = 4;
     public AudioClip swapSound;
     public AudioClip cardSound;
-    private AudioSource audioSource;
+    private string flipSound = "FlipSound";
+    private string swapCard = "SwapCard";
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+       // audioSource = GetComponent<AudioSource>();
     }
 
     public void SwapCardOneWithTwo(Transform cardOne, Transform cardTwo)
@@ -56,8 +57,7 @@ public class ShuffleCards : MonoBehaviour
         Vector3 dirOne = cardOne.position - midPoint;
         Vector3 dirTwo = cardTwo.position - midPoint;
 
-        audioSource.clip = swapSound;
-        audioSource.Play();
+        AudioManager.instance.Play(swapCard);
 
         int angle = 0;
         while (angle <= 180)
@@ -79,8 +79,7 @@ public class ShuffleCards : MonoBehaviour
         busy = true;
         card.gameObject.GetComponent<Card>().busy = true;
         int r = (int)card.eulerAngles.z;
-        audioSource.clip = cardSound;
-        audioSource.Play();
+        AudioManager.instance.Play(flipSound);
         while (r <= 180)
         {
             busy = true;
@@ -98,13 +97,12 @@ public class ShuffleCards : MonoBehaviour
     private IEnumerator FlipCardClose(Transform card)
     {
         if (card)
-        {
-            audioSource.clip = cardSound;
-            audioSource.Play();
+        {           
 
             busy = true;
             card.gameObject.GetComponent<Card>().busy = true;
             int r = (int)card.eulerAngles.z;
+            AudioManager.instance.Play(flipSound);
             while (r >= 0)
             {
                 busy = true;
