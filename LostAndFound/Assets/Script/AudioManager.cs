@@ -37,10 +37,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Play("Menu");
-    }
 
     public void Play(string name)
     {
@@ -71,6 +67,15 @@ public class AudioManager : MonoBehaviour
         //{
         //    s.source.pitch *= .5f;
         //}
+    }
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if(s.source != null)
+        {
+            s.source.Stop();
+        }
     }
 
     public void Update()

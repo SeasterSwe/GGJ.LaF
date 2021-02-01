@@ -20,6 +20,9 @@ public class SceneMangement : MonoBehaviour
         {
             animation.GetComponent<Animator>().SetTrigger("Close");
             yield return new WaitForSeconds(1f);
+           if(AudioManager.instance != null)  
+                AudioManager.instance.Stop("Menu");
+
             SceneManager.LoadScene(name);
         }
         yield return null;

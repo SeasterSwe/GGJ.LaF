@@ -133,7 +133,7 @@ public class MapGenerator : MonoBehaviour
 
         while (y < cardsY - 1)
         {
-            if (Random.Range(0, 12) > 5)
+            if (Random.Range(0, 12) > 8)
             {
                 y++;
                 r = Random.Range(0, 12);
